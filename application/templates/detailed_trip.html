@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{%block trip_details%}
+
+
+{% for trip in detailed_trip %}
+    <h1>Details about trip {{trip.trip_name}}</h1>
+    <p>{{trip.trip_name}}</p>
+
+{%endfor%}
+
+{%endblock%}

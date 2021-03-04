@@ -34,3 +34,9 @@ def trips():
 def view_trips():
     trips = TripRecords.query.all()
     return render_template('view_trips.html', list_trips=trips)
+
+
+@app.route('/<trip_name>')
+def detailed_trip(trip_name):
+    found_trip = TripRecords.query.filter_by(trip_name=trip_name).all()
+    return render_template('detailed_trip.html', detailed_trip=found_trip)
