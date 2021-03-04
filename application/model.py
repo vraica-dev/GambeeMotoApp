@@ -2,7 +2,7 @@ from application import db
 
 
 class TripRecords(db.Model):
-
+    __tablename__ = 'TripRecords'
     id = db.Column(db.Integer, primary_key=True)
     trip_name = db.Column(db.String(100))
     area_name = db.Column(db.String(50))
