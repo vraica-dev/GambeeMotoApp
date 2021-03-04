@@ -1,7 +1,7 @@
 from flask import render_template, redirect, request, url_for
 from flask import current_app as app
-from . import db
-from .model import TripRecords
+from application import db
+from application.model import TripRecords
 
 
 @app.route('/')

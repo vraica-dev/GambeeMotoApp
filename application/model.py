@@ -1,4 +1,4 @@
-from . import db
+from application import db
 
 
 class TripRecords(db.Model):
