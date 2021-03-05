@@ -101,14 +101,22 @@ def trips():
 @app.route('/view_trips', methods=['GET'])
 @login_required
 def view_trips():
-    trips = TripRecords.query.filter_by(added_by=session['logged_user'] ).all()
+    if session['logged_user'] != 'admin@gmail.com':
+        trips = TripRecords.query.filter_by(added_by=session['logged_user'] ).all()
+    else:
+        trips = TripRecords.query.all()
+
     return render_template('view_trips.html', list_trips=trips, crr_user=session['logged_user'].split('@')[0])
 
 
 @app.route('/<trip_name>')
 @login_required
 def detailed_trip(trip_name):
-    found_trip = TripRecords.query.filter_by(trip_name=trip_name, added_by=session['logged_user'] ).all()
+    if session['logged_user'] != 'admin@gmail.com':
+        found_trip = TripRecords.query.filter_by(trip_name=trip_name, added_by=session['logged_user'] ).all()
+    else:
+        found_trip = TripRecords.query.filter_by(trip_name=trip_name).all()
+
     return render_template('detailed_trip.html', detailed_trip=found_trip)
 
 
@@ -116,11 +124,47 @@ def detailed_trip(trip_name):
 def contact():
     return render_template('contact.html')
 
+@app.route('/ap')
+@login_required
+def admin_pannel():
+    if session['logged_user'] != 'admin@gmail.com':
+        return redirect(url_for('login_page'))
+    else:
+
+        all_users = Riders.query.all()
+        all_posts = TripRecords.query.all()
+        return render_template('admin_pannel.html', users=all_users, trip_posts=all_posts)
+
+
 @app.route('/logout')
 def log_out():
     logout_user()
     session.clear()
     return redirect(url_for('login_page'))
+
+@app.route('/delete/<rider_email>')
+def delete_user(rider_email):
+    if session['logged_user'] == 'admin@gmail.com':
+        found_user = Riders.query.filter_by(email=rider_email).first()
+        db.session.delete(found_user)
+        db.session.commit()
+        return redirect(url_for('admin_pannel'))
+    else:
+        return redirect(url_for('login_page'))
+
+
+@app.route('/delete_trip/<rider_email>/<trip_name>')
+def delete_trip(rider_email, trip_name):
+    if session['logged_user'] == 'admin@gmail.com':
+        found_trip = TripRecords.query.filter_by(added_by=rider_email, trip_name=trip_name).first()
+        db.session.delete(found_trip)
+        db.session.commit()
+        return redirect(url_for('admin_pannel'))
+    else:
+        return redirect(url_for('login_page'))
+
+
+
 
 
 

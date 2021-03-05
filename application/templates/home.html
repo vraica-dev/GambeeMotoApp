@@ -1,22 +1,31 @@
 {%extends 'base.html'%}
 
 
-
 {%block action_select%}
 <nav class="navbar navbar-light bg-black">
-  <form class="form-inline">
-    <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'log_out') }}';">LOG OUT</button>
-      <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'contact') }}';">CONTACT</button>
-  </form>
+    <form class="form-inline">
+        <button class="btn btn-outline-success" type="button"
+                onclick="window.location.href='{{ url_for( 'log_out') }}';">LOG OUT
+        </button>
+        <button class="btn btn-outline-success" type="button"
+                onclick="window.location.href='{{ url_for( 'contact') }}';">CONTACT
+        </button>
+        {% if crr_user == 'admin' %}
+        <button class="btn btn-outline-danger" type="button"
+                onclick="window.location.href='{{ url_for( 'admin_pannel') }}';">ADMIN PANNEL
+        </button>
+        {%endif%}
+    </form>
+
     <p class="m-2"></p>
     {% if crr_user == 'guest' %}
-        <button type="button" class="btn btn-danger" disabled>
-             User logged: {{ crr_user }}
-        </button>
+    <button type="button" class="btn btn-danger" disabled>
+        User logged: {{ crr_user }}
+    </button>
     {%else%}
-        <button type="button" class="btn btn-info" disabled>
-             User logged: {{ crr_user }}
-        </button>
+    <button type="button" class="btn btn-info" disabled>
+        User logged: {{ crr_user }}
+    </button>
     {% endif %}
 
 </nav>
@@ -24,7 +33,8 @@
 <div class="row py-lg-5">
     <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-bold text-center">Gambee Moto App</h1>
-        <p class="lead text-muted">Welcome to Gambee Moto App. Here you can log your trips, mechanical operations, consumption and so on.</p>
+        <p class="lead text-muted">Welcome to Gambee Moto App. Here you can log your trips, mechanical operations,
+            consumption and so on.</p>
     </div>
 </div>
 
@@ -40,8 +50,12 @@
                     <p class="card-text">Log a motorcycle trip details.</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='{{ url_for( 'trips') }}';">Add New</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary" onclick="window.location.href='{{ url_for( 'view_trips') }}';">View Trips</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                    onclick="window.location.href='{{ url_for( 'trips') }}';">Add New
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary"
+                                    onclick="window.location.href='{{ url_for( 'view_trips') }}';">View Trips
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -73,8 +87,8 @@
                     <p class="card-text">Log trip pictures you took when riding.</p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary" >Add New</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary" >View Trips</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">Add New</button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">View Trips</button>
                         </div>
                     </div>
                 </div>
