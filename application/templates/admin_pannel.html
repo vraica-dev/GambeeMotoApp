@@ -5,48 +5,51 @@
 <h1>Riders:</h1>
 
 <table class="table">
-  <thead>
+    <thead>
     <tr>
-      <th scope="col">#</th>
-      <th scope="col">Rider Names</th>
+        <th scope="col">#</th>
+        <th scope="col">Rider Names</th>
         <th scope="col">Action</th>
     </tr>
-  </thead>
-  <tbody>
-   {%for rider in users%}
-        <tr>
-          <th scope="row">{{rider.id}}</th>
-          <td>{{rider.email}}</td>
-            <td>
-                <a href="{{url_for('delete_user', rider_email=rider.email)}}" class="btn btn-info">DELETE</a>
-            </td>
-        </tr>
+    </thead>
+    <tbody>
+    {%for rider in users%}
+    <tr>
+        <th scope="row">{{rider.id}}</th>
+        <td>{{rider.email}}</td>
+        <td>
+            <a href="{{url_for('delete_user', rider_email=rider.email)}}" class="btn btn-info">DELETE</a>
+        </td>
+    </tr>
     {%endfor%}
-  </tbody>
+    </tbody>
 </table>
 
 <h1>Posts:</h1>
 
 <table class="table">
-  <thead>
+    <thead>
     <tr>
-      <th scope="col">#</th>
+        <th scope="col">#</th>
         <th scope="col">Post Name</th>
+        <th scope="col">Rider Name</th>
         <th scope="col">Action</th>
     </tr>
-  </thead>
-  <tbody>
-   {%for trip in trip_posts%}
-        <tr>
-          <th scope="row">{{trip.trip_name}}</th>
-          <td>{{trip.added_by}}</td>
-            <td>
-                <a href="{{url_for('detailed_trip', trip_name=trip.trip_name)}}" class="btn btn-info">VIEW POST</a>
-                <a href="{{url_for('delete_trip', rider_email = trip.added_by, trip_name=trip.trip_name)}}" class="btn btn-info">DELETE</a>
-            </td>
-        </tr>
+    </thead>
+    <tbody>
+    {%for trip in trip_posts%}
+    <tr>
+        <th scope="row">{{trip.id}}</th>
+        <td>{{trip.trip_name}}</td>
+        <td>{{trip.added_by}}</td>
+        <td>
+            <a href="{{url_for('detailed_trip', trip_name=trip.trip_name)}}" class="btn btn-info">VIEW POST</a>
+            <a href="{{url_for('delete_trip', rider_email = trip.added_by, trip_name=trip.trip_name)}}"
+               class="btn btn-info">DELETE</a>
+        </td>
+    </tr>
     {%endfor%}
-  </tbody>
+    </tbody>
 </table>
 
 {%endblock%}

@@ -20,7 +20,7 @@ def login_page():
         valid_rider = Riders.query.filter_by(email=rider_email).first()
 
         if valid_rider is not None and valid_rider.check_password(rider_passw):
-            session['logged_user'] =  valid_rider.email
+            session['logged_user'] = valid_rider.email
             login_user(valid_rider)
             return redirect(url_for('home'))
         else:
@@ -55,12 +55,11 @@ def signup_page():
         return render_template('signup.html')
 
 
-
 @app.route('/home')
 @login_required
 def home():
     if session.get('logged_user', None) is not None:
-        return render_template('home.html', crr_user=session['logged_user'].split('@')[0] )
+        return render_template('home.html', crr_user=session['logged_user'].split('@')[0])
     else:
         return redirect(url_for('login_page'))
 
@@ -68,7 +67,6 @@ def home():
 @app.route('/trips', methods=['GET', 'POST'])
 @login_required
 def trips():
-
     if session.get('logged_user', None) is not None:
 
         if request.method == 'GET':
@@ -87,8 +85,10 @@ def trips():
                 flash("Sorry. You can't save data as Guest.")
             else:
 
-                new_trip = TripRecords(trip_name=temp_trip_name, area_name=temp_area_name, km_travelled=temp_km_travelled,
-                                       h_travelled=temp_hours_riding, km_initial=temp_km_initial, km_final=temp_km_final, added_by=temp_added_by)
+                new_trip = TripRecords(trip_name=temp_trip_name, area_name=temp_area_name,
+                                       km_travelled=temp_km_travelled,
+                                       h_travelled=temp_hours_riding, km_initial=temp_km_initial,
+                                       km_final=temp_km_final, added_by=temp_added_by)
                 db.session.add(new_trip)
                 db.session.commit()
 
@@ -102,7 +102,7 @@ def trips():
 @login_required
 def view_trips():
     if session['logged_user'] != 'admin@gmail.com':
-        trips = TripRecords.query.filter_by(added_by=session['logged_user'] ).all()
+        trips = TripRecords.query.filter_by(added_by=session['logged_user']).all()
     else:
         trips = TripRecords.query.all()
 
@@ -113,9 +113,9 @@ def view_trips():
 @login_required
 def detailed_trip(trip_name):
     if session['logged_user'] != 'admin@gmail.com':
-        found_trip = TripRecords.query.filter_by(trip_name=trip_name, added_by=session['logged_user'] ).all()
+        found_trip = TripRecords.query.filter_by(trip_name=trip_name, added_by=session['logged_user']).first()
     else:
-        found_trip = TripRecords.query.filter_by(trip_name=trip_name).all()
+        found_trip = TripRecords.query.filter_by(trip_name=trip_name).first()
 
     return render_template('detailed_trip.html', detailed_trip=found_trip)
 
@@ -123,6 +123,7 @@ def detailed_trip(trip_name):
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
 
 @app.route('/ap')
 @login_required
@@ -142,6 +143,7 @@ def log_out():
     session.clear()
     return redirect(url_for('login_page'))
 
+
 @app.route('/delete/<rider_email>')
 def delete_user(rider_email):
     if session['logged_user'] == 'admin@gmail.com':
@@ -155,22 +157,49 @@ def delete_user(rider_email):
 
 @app.route('/delete_trip/<rider_email>/<trip_name>')
 def delete_trip(rider_email, trip_name):
-    if session['logged_user'] == 'admin@gmail.com':
+
+    if session['logged_user'] != 'guest@guest.com':
         found_trip = TripRecords.query.filter_by(added_by=rider_email, trip_name=trip_name).first()
         db.session.delete(found_trip)
-        db.session.commit()
-        return redirect(url_for('admin_pannel'))
+        db.session.comit()
+
+        if session['logged_user'] == 'admin@gmail.com':
+            return redirect(url_for('admin_pannel'))
+        else:
+            return redirect(url_for('view_trips'))
+
     else:
-        return redirect(url_for('login_page'))
+        flash("Guest user cannot delete posts.")
+        return redirect(url_for('view_trips'))
 
 
 
 
+@app.route('/update_trip/<rider_email>/<trip_name>', methods=['POST'])
+def update_existing_trip(rider_email, trip_name):
+    temp_trip_name = request.form['new_trip_name']
+    temp_area_name = request.form['new_area_name']
+    temp_km_travelled = int(request.form['new_km_travelled'])
+    temp_hours_riding = int(request.form['new_hours_riding'])
+    temp_km_initial = int(request.form['new_km_initial'])
+    temp_km_final = int(request.form['new_km_final'])
+    temp_added_by = session['logged_user']
+
+    trip_existing = TripRecords.query.filter_by(added_by=rider_email, trip_name=trip_name).first()
+    updated_trip = TripRecords(trip_name=temp_trip_name, area_name=temp_area_name,
+                               km_travelled=temp_km_travelled,
+                               h_travelled=temp_hours_riding, km_initial=temp_km_initial,
+                               km_final=temp_km_final, added_by=temp_added_by)
+
+    db.session.delete(trip_existing)
+    db.session.commit()
+
+    db.session.add(updated_trip)
+    db.session.commit()
+
+    return redirect(url_for('view_trips'))
 
 
 @loginMan.user_loader
 def load_user(email):
     return Riders.query.filter_by(email=email).first()
-
-
-

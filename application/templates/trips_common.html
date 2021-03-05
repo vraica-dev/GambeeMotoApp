@@ -1,0 +1,52 @@
+{%extends 'base.html'%}
+
+{%block trips_common%}
+<nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+    <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">Return HOME</button>
+  </form>
+
+    <p class="m-2"></p>
+    {% if crr_user == 'guest' %}
+        <button type="button" class="btn btn-danger" disabled>
+             User logged: {{ crr_user }}
+        </button>
+    {%else%}
+        <button type="button" class="btn btn-info" disabled>
+             User logged: {{ crr_user }}
+        </button>
+    {% endif %}
+
+
+</nav>
+
+
+<div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-bold text-center">Gambee Moto App</h1>
+        <p class="lead text-muted">Here you can log a new riding trip.</p>
+    </div>
+
+    <BR>
+    <HR>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+                {% for message in messages %}
+                 <div class="alert alert-danger" role="alert">
+                     {{message}}
+                 </div>
+                {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+</div>
+
+
+{%endblock%}
+
+{%block form_details%}
+{%endblock%}
+
+{%block trip_details%}
+{%endblock%}

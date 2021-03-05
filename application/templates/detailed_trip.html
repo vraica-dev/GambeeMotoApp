@@ -1,12 +1,87 @@
-{% extends 'base.html' %}
+{% extends 'trips_common.html' %}
 
 {%block trip_details%}
 
+<div class="py-2 text-center container">
+    <h1>Details about trip - {{detailed_trip.trip_name}}</h1>
+    <p>Author - {{detailed_trip.added_by}}</p>
+    <div class="card text-center container ml-2" style="width: 100%;">
 
-{% for trip in detailed_trip %}
-    <h1>Details about trip {{trip.trip_name}}</h1>
-    <p>{{trip.trip_name}}</p>
+        <form action="{{url_for('update_existing_trip', rider_email=detailed_trip.added_by,
+                                    trip_name=detailed_trip.trip_name)}}" method="POST" class="needs-validation"
+              novalidate>
+            <div class="form-row">
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom01">Trip Name</label>
+                    <input type="text" class="form-control" id="validationCustom01" name="new_trip_name"
+                           placeholder="e.g. My Nice Trip" value="{{detailed_trip.trip_name}}"
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom02">Area Visited</label>
+                    <input type="text" class="form-control" id="validationCustom02" name="new_area_name"
+                           placeholder="e.g. Valea Prahovei" value="{{detailed_trip.area_name}}"
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
 
-{%endfor%}
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustomUsername"># km travelled</label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">KM</span>
+                        </div>
+                        <input type="number" class="form-control" id="validationCustomUsername" name="new_km_travelled"
+                               placeholder="e.g. 777" value="{{detailed_trip.km_travelled}}"
+                               aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">
+                            Please insert the no of km.
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+
+
+            <div class="form-row">
+                <div class="col-md-2 mb-3">
+                    <label for="validationCustom03">Hours of riding</label>
+                    <input type="number" class="form-control" id="validationCustom03" name="new_hours_riding"
+                           placeholder="e.g 2" value="{{detailed_trip.h_travelled}}" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid city.
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom04">No KM - Intiial</label>
+                    <input type="number" class="form-control" id="validationCustom04" name="new_km_initial"
+                           placeholder="e.g. 31200" value="{{detailed_trip.km_initial}}" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid no of km at the beginning of the trip.
+                    </div>
+                </div>
+                <div class="col-md-3 mb-3">
+                    <label for="validationCustom05">No KM - Final</label>
+                    <input type="number" class="form-control" id="validationCustom05" name="new_km_final"
+                           placeholder="e.g. 31520" value="{{detailed_trip.km_final}}" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid no of km at the end of the trip.
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-info mb-4" name="update_trip" type="submit" value="tripUpdate">UPDATE</button>
+        </form>
+        <a href="{{url_for('delete_trip', rider_email = detailed_trip.added_by, trip_name=detailed_trip.trip_name)}}"
+           class="btn btn-danger m-2" style="width: 110px">DELETE</a>
+    </div>
+
+</div>
+
 
 {%endblock%}
