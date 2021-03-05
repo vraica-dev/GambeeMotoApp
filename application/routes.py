@@ -31,6 +31,30 @@ def login_page():
         return render_template('login.html')
 
 
+@app.route('/signup', methods=['GET', 'POST'])
+def signup_page():
+    session.clear()
+
+    if request.method == 'POST':
+        new_email = request.form['new_email']
+        new_passw = request.form['new_passw']
+        new_passw_second = request.form['new_passw']
+
+        new_rider = Riders.query.filter_by(email=new_email).first()
+        new_rider_add = Riders(new_email, new_passw)
+        if new_rider is None and new_passw == new_passw_second:
+            db.session.add(new_rider_add)
+            db.session.commit()
+            return redirect(url_for('login_page'))
+        else:
+            return render_template('signup.html')
+            session.clear()
+    else:
+        session.clear()
+        return render_template('signup.html')
+
+
+
 @app.route('/home')
 @login_required
 def home():

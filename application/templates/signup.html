@@ -12,29 +12,27 @@
 
 <div class="card shadow-sm col-sm-3 mt-4 pt-4" style="width: 360px;">
     <div class="card-body">
-        <form class="form-signin" method="post" action="{{ url_for('login_page', next=request.endpoint) }}">
+        <form class="form-signin" method="post" action="{{ url_for('signup_page') }}">
 
             <img class="mb-4" src="static/imgs/logo.png" alt="" width="72"
                  height="72">
 
-            <h1 class="h3 mb-3 font-weight-normal">Gambee Moto App Login</h1>
-            <label for="inputEmail" class="sr-only">Rider Email</label>
+            <h1 class="h3 mb-3 font-weight-normal">Sign Up for Gambee</h1>
+            <label for="inputEmail" class="sr-only">Insert Email</label>
             <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required=""
-                   autofocus="" name="rider_email">
-            <label for="inputPassword" class="sr-only">Rider Password</label>
+                   autofocus="" name="new_email">
+
+            <label for="inputPassword" class="sr-only">Insert Password</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""
-                   name="rider_passw">
-            <div class="checkbox mb-3">
-                <label>
-                    <input type="checkbox" value="remember-me"> Forget me. Or not.
-                </label>
+                   name="new_passw">
+
+            <label for="inputPassword" class="sr-only">Insert Again Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""
+                   name="new_passw_second">
             </div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Drop a gear!</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Make me a Gambeer</button>
             <p class="mt-5 mb-3 text-muted">© VRAICA 2021</p>
         </form>
-
-        <p>Don't have an account? <a href="{{url_for('signup_page')}}">Request One.</a></p>
-
 
         {% with messages = get_flashed_messages() %}
             {% if messages %}
