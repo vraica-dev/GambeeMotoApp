@@ -20,6 +20,7 @@ def login_page():
         valid_rider = Riders.query.filter_by(email=rider_email).first()
 
         if valid_rider is not None and valid_rider.check_password(rider_passw):
+            session['logged_user'] =  valid_rider.email
             login_user(valid_rider)
             return redirect(url_for('home'))
         else:
@@ -58,40 +59,52 @@ def signup_page():
 @app.route('/home')
 @login_required
 def home():
-    return render_template('home.html')
+    if session.get('logged_user', None) is not None:
+        return render_template('home.html', crr_user=session['logged_user'].split('@')[0] )
+    else:
+        return redirect(url_for('login_page'))
 
 
 @app.route('/trips', methods=['GET', 'POST'])
 @login_required
 def trips():
-    if request.method == 'GET':
-        return render_template('trips.html')
 
-    if request.method == 'POST':
-        temp_trip_name = request.form['trip_name']
-        temp_area_name = request.form['area_name']
-        temp_km_travelled = int(request.form['km_travelled'])
-        temp_hours_riding = int(request.form['hours_riding'])
-        temp_km_initial = int(request.form['km_initial'])
-        temp_km_final = int(request.form['km_final'])
+    if session.get('logged_user', None) is not None:
 
-        new_trip = TripRecords(trip_name=temp_trip_name, area_name=temp_area_name, km_travelled=temp_km_travelled,
-                               h_travelled=temp_hours_riding, km_initial=temp_km_initial, km_final=temp_km_final)
-        db.session.add(new_trip)
-        db.session.commit()
+        if request.method == 'GET':
+            return render_template('trips.html', crr_user=session['logged_user'].split('@')[0])
 
-        return redirect(url_for('trips'))
+        if request.method == 'POST':
+            temp_trip_name = request.form['trip_name']
+            temp_area_name = request.form['area_name']
+            temp_km_travelled = int(request.form['km_travelled'])
+            temp_hours_riding = int(request.form['hours_riding'])
+            temp_km_initial = int(request.form['km_initial'])
+            temp_km_final = int(request.form['km_final'])
+            temp_added_by = session['logged_user']
+
+            new_trip = TripRecords(trip_name=temp_trip_name, area_name=temp_area_name, km_travelled=temp_km_travelled,
+                                   h_travelled=temp_hours_riding, km_initial=temp_km_initial, km_final=temp_km_final, added_by=temp_added_by)
+            db.session.add(new_trip)
+            db.session.commit()
+
+            return redirect(url_for('trips'))
+
+    else:
+        return redirect(url_for('login_page'))
 
 
 @app.route('/view_trips', methods=['GET'])
+@login_required
 def view_trips():
-    trips = TripRecords.query.all()
-    return render_template('view_trips.html', list_trips=trips)
+    trips = TripRecords.query.filter_by(added_by=session['logged_user'] ).all()
+    return render_template('view_trips.html', list_trips=trips, crr_user=session['logged_user'].split('@')[0])
 
 
 @app.route('/<trip_name>')
+@login_required
 def detailed_trip(trip_name):
-    found_trip = TripRecords.query.filter_by(trip_name=trip_name).all()
+    found_trip = TripRecords.query.filter_by(trip_name=trip_name, added_by=session['logged_user'] ).all()
     return render_template('detailed_trip.html', detailed_trip=found_trip)
 
 

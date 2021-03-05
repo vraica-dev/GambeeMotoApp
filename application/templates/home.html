@@ -3,11 +3,15 @@
 
 
 {%block action_select%}
-
 <nav class="navbar navbar-light bg-black">
   <form class="form-inline">
     <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'log_out') }}';">LOG OUT</button>
   </form>
+    <p class="m-2"></p>
+    <button type="button" class="btn btn-info" disabled>
+      User logged: {{ crr_user }}
+    </button>
+
 </nav>
 
 <div class="row py-lg-5">
