@@ -1,0 +1,30 @@
+Python Flask Webframework App
+
+Technologies used:
+	- Python
+	- Flask
+	- SQlite
+	- Bootstrap (& HTML + CSS)
+	- HEROKU (for hosting)
+
+App features:
+	-LogIn / LogOut for existing users;
+	-SignUp option for new users;
+	-Guest area;
+ 	-SQlite database for hosting data/user data;
+
+App functionality:
+	- Log riding trips (trip name/area name/km travelled/hours of riding so on)
+	- View all of your ridings (filtered by user)
+	- Detailed view of specific trip - edit/delete - WIP;
+
+In development:
+	-Log your bike's mechanical operations (type of operation/cost/no of km when the event occured so on);
+	-View all of your bike mechanical events (filtered by user); 
+	-Edit/Delete events;
+	-Compute km/time until next mechanical check;
+	-Log your best pictures taken when riding;
+	-Review them whenever you want;
+	-Add/Delete functionaties;
+
+MORE TO COME!
