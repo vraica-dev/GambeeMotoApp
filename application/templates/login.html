@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="static/style.css">
+    <title>Login</title>
+</head>
+
+<body class="d-flex justify-content-center text-center">
+
+<div class="card shadow-sm col-sm-3 mt-4 pt-4" style="width: 360px;">
+    <div class="card-body">
+        <form class="form-signin" method="post" action="{{ url_for('login_page', next=request.endpoint) }}">
+
+            <img class="mb-4" src="static/imgs/logo.png" alt="" width="72"
+                 height="72">
+
+            <h1 class="h3 mb-3 font-weight-normal">Gambee Moto App Login</h1>
+            <label for="inputEmail" class="sr-only">Rider Email</label>
+            <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required=""
+                   autofocus="" name="rider_email">
+            <label for="inputPassword" class="sr-only">Rider Password</label>
+            <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""
+                   name="rider_passw">
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Forget me. Or not.
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Drop a gear!</button>
+            <p class="mt-5 mb-3 text-muted">© VRAICA 2021</p>
+        </form>
+
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+    </div>
+</div>
+
+
+</body>
+</html>

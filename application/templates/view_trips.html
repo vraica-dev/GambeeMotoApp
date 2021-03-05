@@ -1,6 +1,22 @@
 {% extends 'base.html'%}
 
 {% block listing_trips %}
+
+<nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+    <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">Return HOME</button>
+  </form>
+</nav>
+
+
+<div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-bold text-center">Gambee Moto App</h1>
+        <p class="lead text-muted">Here you can see all of your riding trips.</p>
+    </div>
+</div>
+
+
 <div class="row">
     {% for trip in list_trips %}
 
