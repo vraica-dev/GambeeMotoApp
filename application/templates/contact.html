@@ -1,0 +1,24 @@
+{%extends 'base.html'%}
+
+{%block contact%}
+
+<nav class="navbar navbar-light bg-black">
+  <form class="form-inline">
+    <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">RETURN HOME</button>
+  </form>
+</nav>
+
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Contact/About Me</h1>
+    <p class="lead">This app was made for learning purposes only.</p>
+      <p class="lead">Please be aware that the app is still WIP, so bear with me.</p>
+      <br>
+      <hr>
+
+      <p>Dev Linkeding address - https://www.linkedin.com/in/valiraica/</p>
+
+  </div>
+</div>
+
+{%endblock%}

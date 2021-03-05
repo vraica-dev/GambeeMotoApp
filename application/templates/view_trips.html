@@ -8,9 +8,15 @@
   </form>
 
     <p class="m-2"></p>
-    <button type="button" class="btn btn-info" disabled>
-      User logged: {{ crr_user }}
-    </button>
+    {% if crr_user == 'guest' %}
+        <button type="button" class="btn btn-danger" disabled>
+             User logged: {{ crr_user }}
+        </button>
+    {%else%}
+        <button type="button" class="btn btn-info" disabled>
+             User logged: {{ crr_user }}
+        </button>
+    {% endif %}
 
 </nav>
 

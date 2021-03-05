@@ -83,10 +83,14 @@ def trips():
             temp_km_final = int(request.form['km_final'])
             temp_added_by = session['logged_user']
 
-            new_trip = TripRecords(trip_name=temp_trip_name, area_name=temp_area_name, km_travelled=temp_km_travelled,
-                                   h_travelled=temp_hours_riding, km_initial=temp_km_initial, km_final=temp_km_final, added_by=temp_added_by)
-            db.session.add(new_trip)
-            db.session.commit()
+            if session.get('logged_user', None) == 'guest@guest.com':
+                flash("Sorry. You can't save data as Guest.")
+            else:
+
+                new_trip = TripRecords(trip_name=temp_trip_name, area_name=temp_area_name, km_travelled=temp_km_travelled,
+                                       h_travelled=temp_hours_riding, km_initial=temp_km_initial, km_final=temp_km_final, added_by=temp_added_by)
+                db.session.add(new_trip)
+                db.session.commit()
 
             return redirect(url_for('trips'))
 
@@ -108,6 +112,10 @@ def detailed_trip(trip_name):
     return render_template('detailed_trip.html', detailed_trip=found_trip)
 
 
+@app.route('/contact')
+def contact():
+    return render_template('contact.html')
+
 @app.route('/logout')
 def log_out():
     logout_user()
@@ -115,9 +123,9 @@ def log_out():
     return redirect(url_for('login_page'))
 
 
+
 @loginMan.user_loader
 def load_user(email):
-    print(email)
     return Riders.query.filter_by(email=email).first()
 
 
