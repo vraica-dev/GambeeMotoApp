@@ -218,7 +218,7 @@ def user_panel(rider_email):
 
 @app.route('/mechanical_event', methods=['GET', 'POST'])
 @login_required
-def mechanical():
+def mechanical_event():
     if session.get('logged_user', None) is not None:
 
         if request.method == 'GET':
@@ -242,7 +242,7 @@ def mechanical():
                 db.session.add(new_event)
                 db.session.commit()
 
-            return redirect(url_for('mechanical'))
+            return redirect(url_for('mechanical_event'))
 
     else:
         return redirect(url_for('login_page'))
