@@ -1,5 +1,4 @@
 from flask import render_template, redirect, request, url_for, session, flash
-from werkzeug.urls import url_parse
 from flask import current_app as app
 from flask_login import LoginManager, current_user, login_user, login_manager, login_required, logout_user
 from application import db
@@ -231,6 +230,7 @@ def mechanical_event():
             temp_event_km = request.form['mevent_km']
             temp_event_cost = request.form['mevent_cost']
             temp_event_owner = session['logged_user']
+
 
             if session.get('logged_user', None) == 'XXguest@guest.com':
                 flash("Sorry. You can't save data as Guest.")
