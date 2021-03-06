@@ -1,0 +1,84 @@
+{% extends 'trips_common.html' %}
+
+{%block event_details%}
+
+<div class="text=center">
+    <h3>Details about the mechanical event - {{detailed_event.event_name}}</h3>
+    <p>Author - {{detailed_event.event_date}}</p>
+</div>
+
+
+<div class=" text-center container pb-1" style="width: 30%">
+
+    <div class="card text-center container mb-4">
+
+        <form action="{{url_for('update_existing_event', rider_email=detailed_event.event_owner,
+                                    event_name=detailed_event.event_name)}}" method="POST" class="needs-validation" novalidate>
+
+            <div class="form-row">
+                <div class="col-md mb-3">
+                    <label for="validationCustom01">Mechanical Event Name</label>
+                    <input type="text" class="form-control" id="validationCustom021" name="new_mevent_name"
+                           placeholder="e.g. New Oil" value="{{detailed_event.event_name}}"
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md mb-3">
+                    <label for="validationCustom01">Date of event</label>
+                    <input type="date" class="form-control" id="validationCustom01" name="new_mevent_date"
+                           placeholder="e.g. 02/02/2002" value="{{detailed_event.event_date}}"
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md mb-3">
+                    <label for="validationCustom02">Details</label>
+                    <input type="text" class="form-control" id="validationCustom02" name="new_mevent_details"
+                           placeholder="e.g. new engine oil; additional engine checks;" value="{{detailed_event.event_details}}"
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="col-md mb-3">
+                    <label for="validationCustomUsername">#km when event occured </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">KM</span>
+                        </div>
+                        <input type="number" class="form-control" id="validationCustomUsername" name="new_mevent_km"
+                               placeholder="e.g. 31200" value="{{detailed_event.event_km}}"
+                               aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">
+                            Please insert the no of km.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md mb-3">
+                    <label for="validationCustom03">Cost (EUR)</label>
+                    <input type="number" class="form-control" id="validationCustom03" name="new_mevent_cost"
+                           placeholder="e.g 340" value="{{detailed_event.event_cost}}" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid cost.
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-warning mb-4" name="record_event" type="submit" value="eventSubmit">Update Event
+            </button>
+        </form>
+        <a href="{{url_for('delete_event', rider_email = detailed_event.event_owner, event_name=detailed_event.event_name)}}"
+           class="btn btn-danger m-2" style="width: 110px">DELETE</a>
+    </div>
+
+</div>
+
+
+
+{%endblock%}

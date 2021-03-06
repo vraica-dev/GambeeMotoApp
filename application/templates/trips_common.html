@@ -1,6 +1,7 @@
 {%extends 'base.html'%}
 
 {%block trips_common%}
+
 <nav class="navbar navbar-light bg-light">
   <form class="form-inline">
     <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">Return HOME</button>
@@ -19,13 +20,14 @@
 
 
 </nav>
+{%block event_details%}{%endblock%}
+
+{%block form_details%}{%endblock%}
+
+{%block trip_details%}{%endblock%}
+
 {%endblock%}
 
 
 
 
-{%block form_details%}
-{%endblock%}
-
-{%block trip_details%}
-{%endblock%}

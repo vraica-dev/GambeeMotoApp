@@ -112,7 +112,7 @@ def view_trips():
     return render_template('view_trips.html', list_trips=trips, crr_user=session['logged_user'].split('@')[0])
 
 
-@app.route('/<trip_name>')
+@app.route('/trip/<trip_name>')
 @login_required
 def detailed_trip(trip_name):
     if session['logged_user'] != app.config['ADMIN_USER']:
@@ -231,7 +231,6 @@ def mechanical_event():
             temp_event_cost = request.form['mevent_cost']
             temp_event_owner = session['logged_user']
 
-
             if session.get('logged_user', None) == 'XXguest@guest.com':
                 flash("Sorry. You can't save data as Guest.")
             else:
@@ -257,6 +256,61 @@ def view_mechanical_ev():
         mevents = MechanicalEvent.query.all()
 
     return render_template('view_mechanical_ev.html', mevents=mevents, crr_user=session['logged_user'].split('@')[0])
+
+
+@app.route('/event/<event_name>')
+@login_required
+def detailed_event(event_name):
+    event_name = event_name.split('$')[1]
+    if session['logged_user'] != app.config['ADMIN_USER']:
+        found_mevent = MechanicalEvent.query.filter_by(event_name=event_name,
+                                                       event_owner=session['logged_user']).first()
+    else:
+        found_mevent = MechanicalEvent.query.filter_by(event_name=event_name).first()
+
+    return render_template('detailed_event.html', detailed_event=found_mevent,
+                           crr_user=session['logged_user'].split('@')[0])
+
+
+@app.route('/update_event/<rider_email>/<event_name>', methods=['POST'])
+def update_existing_event(rider_email, event_name):
+    temp_event_name = request.form['new_mevent_name']
+    temp_event_date = datetime.fromisoformat(request.form['new_mevent_date'])
+    temp_event_details = request.form['new_mevent_details']
+    temp_event_km = request.form['new_mevent_km']
+    temp_event_cost = request.form['new_mevent_cost']
+    temp_event_owner = rider_email
+
+    event_existing = MechanicalEvent.query.filter_by(event_owner=rider_email, event_name=event_name).first()
+
+    updated_event = MechanicalEvent(event_name=temp_event_name, event_date=temp_event_date,
+                                    event_details=temp_event_details, event_km=temp_event_km,
+                                    event_cost=temp_event_cost, event_owner=temp_event_owner)
+
+    db.session.delete(event_existing)
+    db.session.commit()
+
+    db.session.add(updated_event)
+    db.session.commit()
+
+    return redirect(url_for('view_mechanical_ev'))
+
+
+@app.route('/delete_event/<rider_email>/<event_name>')
+def delete_event(rider_email, event_name):
+    if session['logged_user'] != 'guest@guest.com':
+        found_event = MechanicalEvent.query.filter_by(event_owner=rider_email, event_name=event_name).first()
+        db.session.delete(found_event)
+        db.session.commit()
+
+        if session['logged_user'] == app.config['ADMIN_USER']:
+            return redirect(url_for('admin_pannel'))
+        else:
+            return redirect(url_for('view_mechanical_ev'))
+
+    else:
+        flash("Guest user cannot delete events.")
+        return redirect(url_for('view_mechanical_ev'))
 
 
 @loginMan.user_loader
