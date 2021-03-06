@@ -1,0 +1,58 @@
+{% extends 'base.html'%}
+
+{% block listing_trips %}
+
+<nav class="navbar navbar-light bg-light">
+  <form class="form-inline">
+    <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">Return HOME</button>
+  </form>
+
+    <p class="m-2"></p>
+    {% if crr_user == 'guest' %}
+        <button type="button" class="btn btn-danger" disabled>
+             User logged: {{ crr_user }}
+        </button>
+    {%else%}
+        <button type="button" class="btn btn-info" disabled>
+             User logged: {{ crr_user }}
+        </button>
+    {% endif %}
+
+</nav>
+
+
+<div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-bold text-center">Gambee Moto App</h1>
+        <p class="lead text-muted">Here you can see all of your bike mechanical events.</p>
+    </div>
+</div>
+
+
+<div class="row">
+    {%set j = namespace(value=1)%}
+    {% if mevents is not none%}
+
+        {% for mevent in mevents %}
+
+        <div class="col-sm-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">#{{j.value}} | {{ mevent.event_name}}</h5>
+                    <hr>
+                    <p class="card-text"> Posted on: {{mevent.event_date}}</p>
+                    <p class="card-text"> Details: {{mevent.event_details}}</p>
+                    <p class="card-text"> KM when occured: {{mevent.event_km}}</p>
+                    <p class="card-text"> Cost (EUR): {{mevent.event_cost}}</p>
+                    <hr>
+                    <a href="#" class="btn btn-primary">View Details</a>
+                </div>
+            </div>
+        </div>
+            {%set j.value =j.value + 1%}
+        {% endfor %}
+    {%else%}
+        <h1>No data to display.</h1>
+    {% endif %}
+</div>
+{% endblock %}

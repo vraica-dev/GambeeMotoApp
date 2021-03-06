@@ -26,6 +26,7 @@
             <p class="text-sm-left">Total KM travelled - {{rider_email.get_total_km()}}</p>
             <p class="text-sm-left">Total Hours travelled - {{rider_email.get_total_h()}}</p>
             <p class="text-sm-left">Days since Last Trip - {{rider_email.get_days_since_last()}}</p>
+            <p class="text-sm-left">Number of Mechanical Events - {{rider_email.get_no_mevents()}}</p>
 
             <button class="btn btn-outline-info" type="button"
                     onclick="window.location.href='{{ url_for( 'view_trips') }}';">VIEW POSTS

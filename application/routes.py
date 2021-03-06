@@ -3,7 +3,7 @@ from werkzeug.urls import url_parse
 from flask import current_app as app
 from flask_login import LoginManager, current_user, login_user, login_manager, login_required, logout_user
 from application import db
-from application.models import TripRecords, Riders
+from application.models import TripRecords, Riders, MechanicalEvent
 from datetime import datetime
 from components.riderProfile import RiderProfile
 
@@ -85,7 +85,7 @@ def trips():
             temp_km_final = int(request.form['km_final'])
             temp_added_by = session['logged_user']
 
-            if session.get('logged_user', None) == 'XXguest@guest.com':
+            if session.get('logged_user', None) == 'guest@guest.com':
                 flash("Sorry. You can't save data as Guest.")
             else:
 
@@ -121,7 +121,8 @@ def detailed_trip(trip_name):
     else:
         found_trip = TripRecords.query.filter_by(trip_name=trip_name).first()
 
-    return render_template('detailed_trip.html', detailed_trip=found_trip, crr_user=session['logged_user'].split('@')[0])
+    return render_template('detailed_trip.html', detailed_trip=found_trip,
+                           crr_user=session['logged_user'].split('@')[0])
 
 
 @app.route('/contact')
@@ -161,7 +162,6 @@ def delete_user(rider_email):
 
 @app.route('/delete_trip/<rider_email>/<trip_name>')
 def delete_trip(rider_email, trip_name):
-
     if session['logged_user'] != 'guest@guest.com':
         found_trip = TripRecords.query.filter_by(added_by=rider_email, trip_name=trip_name).first()
         db.session.delete(found_trip)
@@ -209,10 +209,54 @@ def user_panel(rider_email):
 
     fulL_user = RiderProfile(active_user.email, active_user.joined_on)
     fulL_user.set_tripDB(TripRecords)
-
-    print(fulL_user.get_no_posts())
+    fulL_user.set_meventsDB(MechanicalEvent)
+    fulL_user.get_user_recordset()
+    fulL_user.get_mechanical_recordset()
 
     return render_template('user_panel.html', rider_email=fulL_user)
+
+
+@app.route('/mechanical_event', methods=['GET', 'POST'])
+@login_required
+def mechanical():
+    if session.get('logged_user', None) is not None:
+
+        if request.method == 'GET':
+            return render_template('mechanical_event.html', crr_user=session['logged_user'].split('@')[0])
+
+        if request.method == 'POST':
+            temp_event_name = request.form['mevent_name']
+            temp_event_date = datetime.fromisoformat(request.form['mevent_date'])
+            temp_event_details = request.form['mevent_details']
+            temp_event_km = request.form['mevent_km']
+            temp_event_cost = request.form['mevent_cost']
+            temp_event_owner = session['logged_user']
+
+            if session.get('logged_user', None) == 'XXguest@guest.com':
+                flash("Sorry. You can't save data as Guest.")
+            else:
+
+                new_event = MechanicalEvent(event_name=temp_event_name, event_date=temp_event_date,
+                                            event_details=temp_event_details, event_km=temp_event_km,
+                                            event_cost=temp_event_cost, event_owner=temp_event_owner)
+                db.session.add(new_event)
+                db.session.commit()
+
+            return redirect(url_for('mechanical'))
+
+    else:
+        return redirect(url_for('login_page'))
+
+
+@app.route('/view_mechanical_ev', methods=['GET'])
+@login_required
+def view_mechanical_ev():
+    if session['logged_user'] != app.config['ADMIN_USER']:
+        mevents = MechanicalEvent.query.filter_by(event_owner=session['logged_user']).all()
+    else:
+        mevents = MechanicalEvent.query.all()
+
+    return render_template('view_mechanical_ev.html', mevents=mevents, crr_user=session['logged_user'].split('@')[0])
 
 
 @loginMan.user_loader

@@ -1,0 +1,123 @@
+{%extends 'trips_common.html'%}
+
+{%block form_details%}
+
+
+<div class="row py-lg-1">
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-bold text-center">Gambee Moto App</h1>
+        <p class="lead text-muted">Here you can log a mechanical event.</p>
+    </div>
+
+    <BR>
+    <HR>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+</div>
+
+
+<div class=" text-center container pb-1" style="width: 30%">
+
+    <div class="card text-center container mb-4">
+
+        <form action="{{ url_for('mechanical') }}" method="POST" class="needs-validation" novalidate>
+
+            <div class="form-row">
+                <div class="col-md mb-3">
+                    <label for="validationCustom01">Mechanical Event Name</label>
+                    <input type="text" class="form-control" id="validationCustom02" name="mevent_name"
+                           placeholder="e.g. New Oil" value=""
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md mb-3">
+                    <label for="validationCustom01">Date of event</label>
+                    <input type="date" class="form-control" id="validationCustom01" name="mevent_date"
+                           placeholder="e.g. 02/02/2002" value=""
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md mb-3">
+                    <label for="validationCustom02">Details</label>
+                    <input type="text" class="form-control" id="validationCustom02" name="mevent_details"
+                           placeholder="e.g. new engine oil; additional engine checks;" value=""
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+
+                <div class="col-md mb-3">
+                    <label for="validationCustomUsername">#km when event occured </label>
+                    <div class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text" id="inputGroupPrepend">KM</span>
+                        </div>
+                        <input type="number" class="form-control" id="validationCustomUsername" name="mevent_km"
+                               placeholder="e.g. 31200" value=""
+                               aria-describedby="inputGroupPrepend" required>
+                        <div class="invalid-feedback">
+                            Please insert the no of km.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="col-md mb-3">
+                    <label for="validationCustom03">Cost (EUR)</label>
+                    <input type="number" class="form-control" id="validationCustom03" name="mevent_cost"
+                           placeholder="e.g 340" value="" required>
+                    <div class="invalid-feedback">
+                        Please provide a valid cost.
+                    </div>
+                </div>
+            </div>
+            <button class="btn btn-success mb-4" name="record_trip" type="submit" value="tripSubmit">Record Event
+            </button>
+        </form>
+    </div>
+
+</div>
+
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+
+
+
+</script>
+
+
+{%endblock%}

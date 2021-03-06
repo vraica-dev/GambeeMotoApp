@@ -53,3 +53,20 @@ class Riders(db.Model, UserMixin):
         return self.email
 
 
+class MechanicalEvent(db.Model):
+    __tablename__ = 'Mechanical_Tab'
+    id = db.Column(db.Integer, primary_key=True)
+    event_name = db.Column(db.String(100))
+    event_date = db.Column(db.Date)
+    event_details = db.Column(db.String(200))
+    event_km = db.Column(db.Integer)
+    event_cost = db.Column(db.Float)
+    event_owner = db.Column(db.String(100))
+
+    def __init__(self, event_name, event_date, event_details, event_km, event_cost, event_owner):
+        self.event_name = event_name
+        self.event_date = event_date
+        self.event_details = event_details
+        self.event_km = event_km
+        self.event_cost = event_cost
+        self.event_owner = event_owner
