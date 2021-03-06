@@ -183,7 +183,7 @@ def update_existing_trip(rider_email, trip_name):
     temp_hours_riding = int(request.form['new_hours_riding'])
     temp_km_initial = int(request.form['new_km_initial'])
     temp_km_final = int(request.form['new_km_final'])
-    temp_added_by = session['logged_user']
+    temp_added_by = rider_email
 
     trip_existing = TripRecords.query.filter_by(added_by=rider_email, trip_name=trip_name).first()
     updated_trip = TripRecords(trip_name=temp_trip_name, area_name=temp_area_name,
