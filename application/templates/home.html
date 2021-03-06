@@ -19,11 +19,11 @@
 
     <p class="m-2"></p>
     {% if crr_user == 'guest' %}
-    <button type="button" class="btn btn-danger" disabled>
+    <button type="button" class="btn btn-danger" onclick="window.location.href='{{ url_for( 'user_panel', rider_email=crr_user) }}';">
         User logged: {{ crr_user }}
     </button>
     {%else%}
-    <button type="button" class="btn btn-info" disabled>
+    <button type="button" class="btn btn-info"  onclick="window.location.href='{{ url_for( 'user_panel', rider_email=crr_user) }}';">
         User logged: {{ crr_user }}
     </button>
     {% endif %}

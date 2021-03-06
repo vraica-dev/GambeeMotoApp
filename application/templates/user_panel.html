@@ -1,0 +1,42 @@
+{% extends 'base.html' %}
+
+
+{%block user_block%}
+
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">
+            Return HOME
+        </button>
+    </form>
+
+    <p class="m-2"></p>
+
+
+</nav>
+
+<div class="d-flex justify-content-center text-center">
+    <div class="card shadow-sm col-sm-3 mt-4" style="width: 50%">
+        <div class="card-header">
+            Active User - {{rider_email.email}}
+        </div>
+        <div class="card-body">
+            <p class="text-sm-left">Joined Gambee on - {{rider_email.joined_on}}</p>
+            <p class="text-sm-left">Number of Posts - {{rider_email.get_no_posts()}}</p>
+            <p class="text-sm-left">Total KM travelled - {{rider_email.get_total_km()}}</p>
+            <p class="text-sm-left">Total Hours travelled - {{rider_email.get_total_h()}}</p>
+            <p class="text-sm-left">Days since Last Trip - {{rider_email.get_days_since_last()}}</p>
+
+            <button class="btn btn-outline-info" type="button"
+                    onclick="window.location.href='{{ url_for( 'view_trips') }}';">VIEW POSTS
+            </button>
+
+            <hr>
+
+        </div>
+    </div>
+
+</div>
+
+{%endblock%}
+

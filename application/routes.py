@@ -5,6 +5,7 @@ from flask_login import LoginManager, current_user, login_user, login_manager, l
 from application import db
 from application.models import TripRecords, Riders
 from datetime import datetime
+from components.riderProfile import RiderProfile
 
 loginMan = LoginManager(app)
 login_manager.session_protection = "strong"
@@ -176,8 +177,6 @@ def delete_trip(rider_email, trip_name):
         return redirect(url_for('view_trips'))
 
 
-
-
 @app.route('/update_trip/<rider_email>/<trip_name>', methods=['POST'])
 def update_existing_trip(rider_email, trip_name):
     temp_trip_name = request.form['new_trip_name']
@@ -202,6 +201,18 @@ def update_existing_trip(rider_email, trip_name):
     db.session.commit()
 
     return redirect(url_for('view_trips'))
+
+
+@app.route('/user/<rider_email>')
+def user_panel(rider_email):
+    active_user = Riders.query.filter(Riders.email.startswith(rider_email)).first()
+
+    fulL_user = RiderProfile(active_user.email, active_user.joined_on)
+    fulL_user.set_tripDB(TripRecords)
+
+    print(fulL_user.get_no_posts())
+
+    return render_template('user_panel.html', rider_email=fulL_user)
 
 
 @loginMan.user_loader
