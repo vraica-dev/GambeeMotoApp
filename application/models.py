@@ -1,6 +1,7 @@
 from application import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class TripRecords(db.Model):
     __tablename__ = 'TripRecords'
@@ -30,15 +31,18 @@ class TripRecords(db.Model):
 class Riders(db.Model, UserMixin):
     __tablename__ = 'Users_Tab'
     id = db.Column(db.Integer, primary_key=True)
-    email = db.Column(db.String(100))
+    email = db.Column(db.String(100), unique=True)
     passw = db.Column(db.String(50))
 
     def __init__(self, email, passw):
         self.email = email
-        self.passw = passw
+        self.passw = None
+
+    def set_passw(self, password):
+        self.passw = generate_password_hash(password=password)
 
     def check_password(self, password):
-        return self.passw == password
+        return check_password_hash(self.passw, password)
 
     def get_id(self):
         return self.email

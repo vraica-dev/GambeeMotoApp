@@ -43,6 +43,7 @@ def signup_page():
 
         new_rider = Riders.query.filter_by(email=new_email).first()
         new_rider_add = Riders(new_email, new_passw)
+        new_rider_add.set_passw(new_passw)
         if new_rider is None and new_passw == new_passw_second:
             db.session.add(new_rider_add)
             db.session.commit()
@@ -101,7 +102,7 @@ def trips():
 @app.route('/view_trips', methods=['GET'])
 @login_required
 def view_trips():
-    if session['logged_user'] != 'admin@gmail.com':
+    if session['logged_user'] != app.config['ADMIN_USER']:
         trips = TripRecords.query.filter_by(added_by=session['logged_user']).all()
     else:
         trips = TripRecords.query.all()
@@ -112,7 +113,7 @@ def view_trips():
 @app.route('/<trip_name>')
 @login_required
 def detailed_trip(trip_name):
-    if session['logged_user'] != 'admin@gmail.com':
+    if session['logged_user'] != app.config['ADMIN_USER']:
         found_trip = TripRecords.query.filter_by(trip_name=trip_name, added_by=session['logged_user']).first()
     else:
         found_trip = TripRecords.query.filter_by(trip_name=trip_name).first()
@@ -128,7 +129,7 @@ def contact():
 @app.route('/ap')
 @login_required
 def admin_pannel():
-    if session['logged_user'] != 'admin@gmail.com':
+    if session['logged_user'] != app.config['ADMIN_USER']:
         return redirect(url_for('login_page'))
     else:
 
@@ -146,7 +147,7 @@ def log_out():
 
 @app.route('/delete/<rider_email>')
 def delete_user(rider_email):
-    if session['logged_user'] == 'admin@gmail.com':
+    if session['logged_user'] == app.config['ADMIN_USER']:
         found_user = Riders.query.filter_by(email=rider_email).first()
         db.session.delete(found_user)
         db.session.commit()
@@ -161,9 +162,9 @@ def delete_trip(rider_email, trip_name):
     if session['logged_user'] != 'guest@guest.com':
         found_trip = TripRecords.query.filter_by(added_by=rider_email, trip_name=trip_name).first()
         db.session.delete(found_trip)
-        db.session.comit()
+        db.session.commit()
 
-        if session['logged_user'] == 'admin@gmail.com':
+        if session['logged_user'] == app.config['ADMIN_USER']:
             return redirect(url_for('admin_pannel'))
         else:
             return redirect(url_for('view_trips'))
