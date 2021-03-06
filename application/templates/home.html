@@ -12,14 +12,14 @@
         </button>
         {% if crr_user == 'admin' %}
         <button class="btn btn-outline-danger" type="button"
-                onclick="window.location.href='{{ url_for( 'admin_pannel') }}';">ADMIN PANNEL
+                onclick="window.location.href='{{ url_for( 'admin_pannel') }}';">ADMIN PANEL
         </button>
         {%endif%}
     </form>
 
     <p class="m-2"></p>
     {% if crr_user == 'guest' %}
-    <button type="button" class="btn btn-danger" onclick="window.location.href='{{ url_for( 'user_panel', rider_email=crr_user) }}';">
+    <button type="button" class="btn btn-danger"  onclick="window.location.href='{{ url_for( 'user_panel', rider_email=crr_user) }}';">
         User logged: {{ crr_user }}
     </button>
     {%else%}

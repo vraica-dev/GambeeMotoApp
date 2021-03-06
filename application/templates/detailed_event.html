@@ -13,7 +13,8 @@
     <div class="card text-center container mb-4">
 
         <form action="{{url_for('update_existing_event', rider_email=detailed_event.event_owner,
-                                    event_name=detailed_event.event_name)}}" method="POST" class="needs-validation" novalidate>
+                                    event_name=detailed_event.event_name)}}" method="POST" class="needs-validation"
+              novalidate>
 
             <div class="form-row">
                 <div class="col-md mb-3">
@@ -37,7 +38,8 @@
                 <div class="col-md mb-3">
                     <label for="validationCustom02">Details</label>
                     <input type="text" class="form-control" id="validationCustom02" name="new_mevent_details"
-                           placeholder="e.g. new engine oil; additional engine checks;" value="{{detailed_event.event_details}}"
+                           placeholder="e.g. new engine oil; additional engine checks;"
+                           value="{{detailed_event.event_details}}"
                            required>
                     <div class="valid-feedback">
                         Looks good!
@@ -78,7 +80,6 @@
     </div>
 
 </div>
-
 
 
 {%endblock%}

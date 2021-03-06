@@ -57,4 +57,34 @@
     </tbody>
 </table>
 
+
+<h1>Mechanical Events:</h1>
+
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Event Name</th>
+        <th scope="col">Event Owner</th>
+        <th scope="col">Posted On</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    {%for ev in mevents%}
+    <tr>
+        <th scope="row">{{ev.id}}</th>
+        <td>{{ev.event_name}}</td>
+        <td>{{ev.event_owner}}</td>
+        <td>{{ev.event_date}}</td>
+        <td>
+            <a href="{{url_for('detailed_event', event_name='$' + ev.event_name)}}" class="btn btn-info">VIEW EVENT</a>
+            <a href="{{url_for('delete_event', rider_email = ev.event_owner, event_name='$' + ev.event_name)}}"
+               class="btn btn-danger">DELETE</a>
+        </td>
+    </tr>
+    {%endfor%}
+    </tbody>
+</table>
+
 {%endblock%}

@@ -61,7 +61,10 @@ class RiderProfile(object):
         else:
             latest = self.tripsDB.query.order_by(desc(self.tripsDB.trip_date)).first()
 
-        days_since = (latest.trip_date - datetime.now().date()).days
+        if latest is not None:
+            days_since = (latest.trip_date - datetime.now().date()).days
+        else:
+            days_since = -1
         return days_since
 
     def get_no_mevents(self):
@@ -69,3 +72,9 @@ class RiderProfile(object):
         for ev in self.recordset_mechanical:
             no_events += 1
         return no_events
+
+    def get_cost_mevents(self):
+        cost_events = 0
+        for ev in self.recordset_mechanical:
+            cost_events += ev.event_cost
+        return cost_events

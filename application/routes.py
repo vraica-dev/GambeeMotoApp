@@ -138,7 +138,8 @@ def admin_pannel():
 
         all_users = Riders.query.all()
         all_posts = TripRecords.query.all()
-        return render_template('admin_pannel.html', users=all_users, trip_posts=all_posts)
+        all_events = MechanicalEvent.query.all()
+        return render_template('admin_pannel.html', users=all_users, trip_posts=all_posts, mevents=all_events)
 
 
 @app.route('/logout')
@@ -150,11 +151,29 @@ def log_out():
 
 @app.route('/delete/<rider_email>')
 def delete_user(rider_email):
-    if session['logged_user'] == app.config['ADMIN_USER']:
+
+    def remove_user_data():
         found_user = Riders.query.filter_by(email=rider_email).first()
         db.session.delete(found_user)
+
+        found_trip = TripRecords.query.filter_by(added_by=rider_email).all()
+        for trip in found_trip:
+            db.session.delete(trip)
+
+        found_mechanical = MechanicalEvent.query.filter_by(event_owner=rider_email).all()
+        for mech in found_mechanical:
+            db.session.delete(mech)
+
         db.session.commit()
+
+    if session['logged_user'] == app.config['ADMIN_USER']:
+        remove_user_data()
         return redirect(url_for('admin_pannel'))
+
+    elif session['logged_user'] == rider_email:
+        remove_user_data()
+        return redirect(url_for('login_page'))
+
     else:
         return redirect(url_for('login_page'))
 

@@ -33,9 +33,9 @@
     {%set j = namespace(value=1)%}
     {% for trip in list_trips %}
 
-    <div class="col-sm-3">
-        <div class="card">
-            <div class="card-body">
+    <div class="col-sm-3 ">
+        <div class="card m-2">
+            <div class="card-body card_events">
                 <h5 class="card-title">#{{j.value}} | {{ trip.trip_name}}</h5>
                 <hr>
                 <p class="card-text"> Posted on: {{trip.trip_date}}</p>
