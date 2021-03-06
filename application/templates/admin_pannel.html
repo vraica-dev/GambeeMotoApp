@@ -9,7 +9,9 @@
     <tr>
         <th scope="col">#</th>
         <th scope="col">Rider Names</th>
+        <th scope="col">Joined On</th>
         <th scope="col">Action</th>
+
     </tr>
     </thead>
     <tbody>
@@ -17,8 +19,9 @@
     <tr>
         <th scope="row">{{rider.id}}</th>
         <td>{{rider.email}}</td>
+        <td>{{rider.joined_on}}</td>
         <td>
-            <a href="{{url_for('delete_user', rider_email=rider.email)}}" class="btn btn-info">DELETE</a>
+            <a href="{{url_for('delete_user', rider_email=rider.email)}}" class="btn btn-danger">DELETE</a>
         </td>
     </tr>
     {%endfor%}
@@ -33,6 +36,7 @@
         <th scope="col">#</th>
         <th scope="col">Post Name</th>
         <th scope="col">Rider Name</th>
+        <th scope="col">Posted On</th>
         <th scope="col">Action</th>
     </tr>
     </thead>
@@ -42,10 +46,11 @@
         <th scope="row">{{trip.id}}</th>
         <td>{{trip.trip_name}}</td>
         <td>{{trip.added_by}}</td>
+        <td>{{trip.trip_date}}</td>
         <td>
             <a href="{{url_for('detailed_trip', trip_name=trip.trip_name)}}" class="btn btn-info">VIEW POST</a>
             <a href="{{url_for('delete_trip', rider_email = trip.added_by, trip_name=trip.trip_name)}}"
-               class="btn btn-info">DELETE</a>
+               class="btn btn-danger">DELETE</a>
         </td>
     </tr>
     {%endfor%}

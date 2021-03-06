@@ -2,16 +2,20 @@
 
 {%block trip_details%}
 
-<div class="py-2 text-center container">
-    <h1>Details about trip - {{detailed_trip.trip_name}}</h1>
+<div class="text=center">
+    <h3>Details about trip - {{detailed_trip.trip_name}}</h3>
     <p>Author - {{detailed_trip.added_by}}</p>
+</div>
+
+<div class="text-center container pb-1" style="width: 30%">
+
     <div class="card text-center container ml-2" style="width: 100%;">
 
         <form action="{{url_for('update_existing_trip', rider_email=detailed_trip.added_by,
                                     trip_name=detailed_trip.trip_name)}}" method="POST" class="needs-validation"
               novalidate>
             <div class="form-row">
-                <div class="col-md-2 mb-3">
+                <div class="col-md mb-3">
                     <label for="validationCustom01">Trip Name</label>
                     <input type="text" class="form-control" id="validationCustom01" name="new_trip_name"
                            placeholder="e.g. My Nice Trip" value="{{detailed_trip.trip_name}}"
@@ -20,7 +24,16 @@
                         Looks good!
                     </div>
                 </div>
-                <div class="col-md-2 mb-3">
+                <div>
+                    <label for="validationCustom01">Date of trip</label>
+                    <input type="date" class="form-control" id="validationCustom011" name="new_trip_date"
+                           placeholder="e.g. 23/04/1992" value="{{detailed_trip.trip_date}}"
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md mb-3">
                     <label for="validationCustom02">Area Visited</label>
                     <input type="text" class="form-control" id="validationCustom02" name="new_area_name"
                            placeholder="e.g. Valea Prahovei" value="{{detailed_trip.area_name}}"
@@ -30,7 +43,7 @@
                     </div>
                 </div>
 
-                <div class="col-md-2 mb-3">
+                <div class="col-md mb-3">
                     <label for="validationCustomUsername"># km travelled</label>
                     <div class="input-group">
                         <div class="input-group-prepend">
@@ -50,7 +63,7 @@
 
 
             <div class="form-row">
-                <div class="col-md-2 mb-3">
+                <div class="col-md mb-3">
                     <label for="validationCustom03">Hours of riding</label>
                     <input type="number" class="form-control" id="validationCustom03" name="new_hours_riding"
                            placeholder="e.g 2" value="{{detailed_trip.h_travelled}}" required>
@@ -58,7 +71,7 @@
                         Please provide a valid city.
                     </div>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md mb-3">
                     <label for="validationCustom04">No KM - Intiial</label>
                     <input type="number" class="form-control" id="validationCustom04" name="new_km_initial"
                            placeholder="e.g. 31200" value="{{detailed_trip.km_initial}}" required>
@@ -66,7 +79,7 @@
                         Please provide a valid no of km at the beginning of the trip.
                     </div>
                 </div>
-                <div class="col-md-3 mb-3">
+                <div class="col-md mb-3">
                     <label for="validationCustom05">No KM - Final</label>
                     <input type="number" class="form-control" id="validationCustom05" name="new_km_final"
                            placeholder="e.g. 31520" value="{{detailed_trip.km_final}}" required>

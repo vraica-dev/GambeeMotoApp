@@ -30,22 +30,26 @@
 
 
 <div class="row">
+    {%set j = namespace(value=1)%}
     {% for trip in list_trips %}
 
     <div class="col-sm-3">
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">{{ trip.trip_name}}</h5>
+                <h5 class="card-title">#{{j.value}} | {{ trip.trip_name}}</h5>
+                <hr>
+                <p class="card-text"> Posted on: {{trip.trip_date}}</p>
                 <p class="card-text"> Area Name: {{trip.area_name}}</p>
                 <p class="card-text"> KM Done: {{trip.km_travelled}}</p>
                 <p class="card-text"> Hours of Riding: {{trip.h_travelled}}</p>
                 <p class="card-text"> KM Intial: {{trip.km_initial}}</p>
                 <p class="card-text"> KM Final: {{trip.km_final}}</p>
+                <hr>
                 <a href="{{url_for('detailed_trip', trip_name= trip.trip_name )}}" class="btn btn-primary">View Details</a>
             </div>
         </div>
     </div>
-
+        {%set j.value =j.value + 1%}
     {% endfor %}
 </div>
 {% endblock %}

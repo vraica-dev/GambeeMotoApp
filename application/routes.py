@@ -4,6 +4,7 @@ from flask import current_app as app
 from flask_login import LoginManager, current_user, login_user, login_manager, login_required, logout_user
 from application import db
 from application.models import TripRecords, Riders
+from datetime import datetime
 
 loginMan = LoginManager(app)
 login_manager.session_protection = "strong"
@@ -75,6 +76,7 @@ def trips():
 
         if request.method == 'POST':
             temp_trip_name = request.form['trip_name']
+            temp_trip_date = datetime.fromisoformat(request.form['trip_date'])
             temp_area_name = request.form['area_name']
             temp_km_travelled = int(request.form['km_travelled'])
             temp_hours_riding = int(request.form['hours_riding'])
@@ -82,11 +84,11 @@ def trips():
             temp_km_final = int(request.form['km_final'])
             temp_added_by = session['logged_user']
 
-            if session.get('logged_user', None) == 'guest@guest.com':
+            if session.get('logged_user', None) == 'XXguest@guest.com':
                 flash("Sorry. You can't save data as Guest.")
             else:
 
-                new_trip = TripRecords(trip_name=temp_trip_name, area_name=temp_area_name,
+                new_trip = TripRecords(trip_name=temp_trip_name, trip_date=temp_trip_date, area_name=temp_area_name,
                                        km_travelled=temp_km_travelled,
                                        h_travelled=temp_hours_riding, km_initial=temp_km_initial,
                                        km_final=temp_km_final, added_by=temp_added_by)
@@ -118,7 +120,7 @@ def detailed_trip(trip_name):
     else:
         found_trip = TripRecords.query.filter_by(trip_name=trip_name).first()
 
-    return render_template('detailed_trip.html', detailed_trip=found_trip)
+    return render_template('detailed_trip.html', detailed_trip=found_trip, crr_user=session['logged_user'].split('@')[0])
 
 
 @app.route('/contact')
@@ -179,6 +181,7 @@ def delete_trip(rider_email, trip_name):
 @app.route('/update_trip/<rider_email>/<trip_name>', methods=['POST'])
 def update_existing_trip(rider_email, trip_name):
     temp_trip_name = request.form['new_trip_name']
+    temp_trip_date = datetime.fromisoformat(request.form['new_trip_date'])
     temp_area_name = request.form['new_area_name']
     temp_km_travelled = int(request.form['new_km_travelled'])
     temp_hours_riding = int(request.form['new_hours_riding'])
@@ -187,7 +190,7 @@ def update_existing_trip(rider_email, trip_name):
     temp_added_by = rider_email
 
     trip_existing = TripRecords.query.filter_by(added_by=rider_email, trip_name=trip_name).first()
-    updated_trip = TripRecords(trip_name=temp_trip_name, area_name=temp_area_name,
+    updated_trip = TripRecords(trip_name=temp_trip_name, trip_date=temp_trip_date, area_name=temp_area_name,
                                km_travelled=temp_km_travelled,
                                h_travelled=temp_hours_riding, km_initial=temp_km_initial,
                                km_final=temp_km_final, added_by=temp_added_by)
