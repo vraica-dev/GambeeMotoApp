@@ -7,7 +7,7 @@
     <p>Author - {{detailed_trip.added_by}}</p>
 </div>
 
-<div class="text-center container pb-1" style="width: 30%">
+<div class="text-center container pb-1 form_shadow" style="width: 30%">
 
     <div class="card text-center container ml-2" style="width: 100%;">
 
@@ -88,7 +88,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-info mb-4" name="update_trip" type="submit" value="tripUpdate">UPDATE</button>
+            <button class="btn btn-info mb-2" name="update_trip" type="submit" value="tripUpdate">UPDATE</button>
         </form>
         <a href="{{url_for('delete_trip', rider_email = detailed_trip.added_by, trip_name=detailed_trip.trip_name)}}"
            class="btn btn-danger m-2" style="width: 110px">DELETE</a>

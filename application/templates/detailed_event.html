@@ -3,12 +3,12 @@
 {%block event_details%}
 
 <div class="text=center">
-    <h3>Details about the mechanical event - {{detailed_event.event_name}}</h3>
-    <p>Author - {{detailed_event.event_date}}</p>
+    <h3>Details about the mechanical event - <strong>{{detailed_event.event_name}}</strong></h3>
+    <p><i>Author - {{detailed_event.event_owner}}</i></p>
 </div>
 
 
-<div class=" text-center container pb-1" style="width: 30%">
+<div class=" text-center container pb-1 form_shadow" style="width: 30%">
 
     <div class="card text-center container mb-4">
 
@@ -72,7 +72,7 @@
                     </div>
                 </div>
             </div>
-            <button class="btn btn-warning mb-4" name="record_event" type="submit" value="eventSubmit">Update Event
+            <button class="btn btn-warning mb-2" name="record_event" type="submit" value="eventSubmit">Update Event
             </button>
         </form>
         <a href="{{url_for('delete_event', rider_email = detailed_event.event_owner, event_name=detailed_event.event_name)}}"
