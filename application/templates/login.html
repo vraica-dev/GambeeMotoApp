@@ -5,12 +5,23 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
     <link rel="stylesheet" href="static/style.css">
+    <script src="{{ url_for('static',filename='script.js') }}"></script>
     <title>Login</title>
 </head>
+
+
 
 <body class="d-flex justify-content-center text-center">
 
 <div class="card shadow-sm col-sm-3 mt-4 pt-4" style="width: 360px;">
+
+    <div class="alert alert-warning" role="alert" id="alert_pc">
+          For a better experience, please visit this app on a computer.
+          <button type="button"  onclick="CloseAlert()" class="close" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
     <div class="card-body">
         <form class="form-signin" method="post" action="{{ url_for('login_page', next=request.endpoint) }}">
 
@@ -24,28 +35,32 @@
             <label for="inputPassword" class="sr-only">Rider Password</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""
                    name="rider_passw" value="123">
-            <div class="checkbox mb-3">
+            <div class="checkbox mb-2">
                 <br>
                 <hr>
             </div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Drop a gear!</button>
-            <p class="mt-5 mb-3 text-muted">© VRAICA 2021</p>
+            <p class="mt-5 mb-3 text-muted">© VRAICA 2021 | v2.2.1</p>
         </form>
 
         <p>Don't have an account? <a href="{{url_for('signup_page')}}">Request One.</a></p>
 
-
         {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul class=flashes>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
+        {% if messages %}
+        <ul class=flashes>
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
         {% endwith %}
     </div>
+
 </div>
+
+
+
+
 
 
 </body>

@@ -18,3 +18,9 @@ function BoldCardDetailsOff(id_) {
     el.style.fontWeight = 'normal';
     el.style.color='#000000';
 }
+
+function CloseAlert() {
+    const el = document.getElementById('alert_pc');
+    el.style.display = 'None';
+ 
+}
