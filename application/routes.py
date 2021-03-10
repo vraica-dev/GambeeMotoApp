@@ -1,10 +1,13 @@
-from flask import render_template, redirect, request, url_for, session, flash
+from flask import render_template, redirect, request, url_for, session, flash, send_file
 from flask import current_app as app
 from flask_login import LoginManager, current_user, login_user, login_manager, login_required, logout_user
 from application import db
 from application.models import TripRecords, Riders, MechanicalEvent
 from datetime import datetime
 from components.riderProfile import RiderProfile
+from components.exporter import DataExporter
+import config
+import os
 
 loginMan = LoginManager(app)
 login_manager.session_protection = "strong"
@@ -330,6 +333,22 @@ def delete_event(rider_email, event_name):
     else:
         flash("Guest user cannot delete events.")
         return redirect(url_for('view_mechanical_ev'))
+
+
+@app.route('/download/<tab>', methods=['GET', 'POST'])
+def download_file(tab):
+
+    if os.path.isfile(f'application/temp_files/data_{tab}.csv'):
+        os.remove(f'application/temp_files/data_{tab}.csv')
+
+    expo = DataExporter(session['logged_user'], tab)
+    expo.load_df()
+    expo.export_df()
+
+    if os.path.isfile(f'application/temp_files/data_{tab}.csv'):
+        return send_file(f'temp_files/data_{tab}.csv', as_attachment=True)
+    else:
+        return f'<p>No file processed for {tab}.</p>'
 
 
 @loginMan.user_loader

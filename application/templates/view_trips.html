@@ -3,28 +3,39 @@
 {% block listing_trips %}
 
 <nav class="navbar navbar-light bg-light">
-  <form class="form-inline">
-    <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">Return HOME</button>
-  </form>
+    <form class="form-inline">
+        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">
+            Return HOME
+        </button>
+    </form>
 
     <p class="m-2"></p>
     {% if crr_user == 'guest' %}
-        <button type="button" class="btn btn-danger" disabled>
-             User logged: {{ crr_user }}
-        </button>
+    <button type="button" class="btn btn-danger" disabled>
+        User logged: {{ crr_user }}
+    </button>
     {%else%}
-        <button type="button" class="btn btn-info" disabled>
-             User logged: {{ crr_user }}
-        </button>
+    <button type="button" class="btn btn-info" disabled>
+        User logged: {{ crr_user }}
+    </button>
     {% endif %}
 
 </nav>
 
 
 <div class="row py-lg-5">
+
     <div class="col-lg-6 col-md-8 mx-auto">
         <h1 class="fw-bold text-center">Gambee Moto App</h1>
         <p class="lead text-muted">Here you can see all of your riding trips.</p>
+    </div>
+
+    <div class="row mb-2" style="height: 14px">
+        <div class="col">
+            <button type="button" style="border: 2px solid black;" class="btn btn-light"
+                    onclick="window.location.href='{{ url_for( 'download_file', tab='trips') }}';">Download trips to CSV
+            </button>
+        </div>
     </div>
 </div>
 
@@ -45,11 +56,16 @@
                 <p class="card-text"> KM Intial: {{trip.km_initial}}</p>
                 <p class="card-text"> KM Final: {{trip.km_final}}</p>
                 <hr>
-                <a href="{{url_for('detailed_trip', trip_name= trip.trip_name )}}" class="btn btn-primary">View Details</a>
+                <a href="{{url_for('detailed_trip', trip_name= trip.trip_name )}}" class="btn btn-primary">View
+                    Details</a>
             </div>
         </div>
     </div>
-        {%set j.value =j.value + 1%}
+    {%set j.value =j.value + 1%}
     {% endfor %}
+
 </div>
+
+
 {% endblock %}
+

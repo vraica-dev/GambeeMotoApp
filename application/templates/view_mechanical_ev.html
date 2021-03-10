@@ -28,6 +28,15 @@
         <h1 class="fw-bold text-center">Gambee Moto App</h1>
         <p class="lead text-muted">Here you can see all of your bike mechanical events.</p>
     </div>
+
+    <div class="row mb-2" style="height: 14px">
+        <div class="col">
+            <button type="button" style="border: 2px solid black;" class="btn btn-light"
+                    onclick="window.location.href='{{ url_for( 'download_file', tab='events') }}';">Download events to CSV
+            </button>
+        </div>
+    </div>
+
 </div>
 
 
