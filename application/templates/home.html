@@ -49,17 +49,40 @@
                 <img src="static/imgs/motorbike-touring.jpg" class="img_home">
 
                 <div class="card-body">
-                    <p class="card-text" id="trip_add_p">Log a motorcycle trip details.</p>
+                    <p class="card-text" id="trip_add_p">Log a motorcycle trip details.
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-signpost-split-fill" viewBox="0 0 16 16">
+                            <path d="M7 16h2V6h5a1 1 0 0 0 .8-.4l.975-1.3a.5.5 0 0 0 0-.6L14.8 2.4A1 1 0 0 0 14 2H9v-.586a1 1 0 0 0-2 0V7H2a1 1 0 0 0-.8.4L.225 8.7a.5.5 0 0 0 0 .6l.975 1.3a1 1 0 0 0 .8.4h5v5z"/>
+                        </svg>
+                    </p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
+
                             <button type="button" class="btn btn-sm btn-outline-secondary"
                                     onclick="window.location.href='{{ url_for( 'trips') }}';"
-                                    onmouseover="BoldCardDetails('trip_add_p')" onmouseleave="BoldCardDetailsOff('trip_add_p')">Add New
+                                    onmouseover="BoldCardDetails('trip_add_p')"
+                                    onmouseleave="BoldCardDetailsOff('trip_add_p')">Add New
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
+                                    <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+                                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+                                </svg>
                             </button>
+
+
                             <button type="button" class="btn btn-sm btn-outline-secondary"
                                     onclick="window.location.href='{{ url_for( 'view_trips') }}';"
-                                    onmouseover="BoldCardDetails('trip_add_p')" onmouseleave="BoldCardDetailsOff('trip_add_p')">View Trips
+                                    onmouseover="BoldCardDetails('trip_add_p')"
+                                    onmouseleave="BoldCardDetailsOff('trip_add_p')">View Trips
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-view-list" viewBox="0 0 16 16">
+                                    <path d="M3 4.5h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H3zM1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2zm0 12a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 14z"/>
+                                </svg>
+
                             </button>
+
                         </div>
                     </div>
                 </div>
@@ -72,16 +95,32 @@
                 <img src="static/imgs/mmi-motorcycle-honda-hands-on-working-in-lab.jpg" class="img_home">
 
                 <div class="card-body">
-                    <p class="card-text" id="mevent_add_p">Log mechanical operation on your bike.</p>
+                    <p class="card-text" id="mevent_add_p">Log mechanical operations.
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-tools" viewBox="0 0 16 16">
+                            <path d="M1 0L0 1l2.2 3.081a1 1 0 0 0 .815.419h.07a1 1 0 0 1 .708.293l2.675 2.675-2.617 2.654A3.003 3.003 0 0 0 0 13a3 3 0 1 0 5.878-.851l2.654-2.617.968.968-.305.914a1 1 0 0 0 .242 1.023l3.356 3.356a1 1 0 0 0 1.414 0l1.586-1.586a1 1 0 0 0 0-1.414l-3.356-3.356a1 1 0 0 0-1.023-.242L10.5 9.5l-.96-.96 2.68-2.643A3.005 3.005 0 0 0 16 3c0-.269-.035-.53-.102-.777l-2.14 2.141L12 4l-.364-1.757L13.777.102a3 3 0 0 0-3.675 3.68L7.462 6.46 4.793 3.793a1 1 0 0 1-.293-.707v-.071a1 1 0 0 0-.419-.814L1 0zm9.646 10.646a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708l-3-3a.5.5 0 0 1 0-.708zM3 11l.471.242.529.026.287.445.445.287.026.529L5 13l-.242.471-.026.529-.445.287-.287.445-.529.026L3 15l-.471-.242L2 14.732l-.287-.445L1.268 14l-.026-.529L1 13l.242-.471.026-.529.445-.287.287-.445.529-.026L3 11z"/>
+                        </svg>
+                    </p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-outline-secondary"
                                     onclick="window.location.href='{{ url_for( 'mechanical_event') }}';"
-                                    onmouseover="BoldCardDetails('mevent_add_p')" onmouseleave="BoldCardDetailsOff('mevent_add_p')">Add New
+                                    onmouseover="BoldCardDetails('mevent_add_p')"
+                                    onmouseleave="BoldCardDetailsOff('mevent_add_p')">Add New
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
+                                    <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+                                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+                                </svg>
                             </button>
                             <button type="button" class="btn btn-sm btn-outline-secondary"
                                     onclick="window.location.href='{{ url_for( 'view_mechanical_ev') }}';"
-                                    onmouseover="BoldCardDetails('mevent_add_p')" onmouseleave="BoldCardDetailsOff('mevent_add_p')"> View Events
+                                    onmouseover="BoldCardDetails('mevent_add_p')"
+                                    onmouseleave="BoldCardDetailsOff('mevent_add_p')"> View Events
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-view-list" viewBox="0 0 16 16">
+                                    <path d="M3 4.5h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H3zM1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2zm0 12a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 14z"/>
+                                </svg>
                             </button>
                         </div>
                     </div>
@@ -94,14 +133,31 @@
                 <img src="static/imgs/driver-riding-motorcycle-asphalt-road-empty-84102070.jpg" class="img_home">
 
                 <div class="card-body">
-                    <p class="card-text" id="pic_add_p">Log trip pictures you took when riding.</p>
+                    <p class="card-text" id="pic_add_p">Log trip pictures you took.
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-image-fill" viewBox="0 0 16 16">
+                            <path d="M.002 3a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-12a2 2 0 0 1-2-2V3zm1 9v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V9.5l-3.777-1.947a.5.5 0 0 0-.577.093l-3.71 3.71-2.66-1.772a.5.5 0 0 0-.63.062L1.002 12zm5-6.5a1.5 1.5 0 1 0-3 0 1.5 1.5 0 0 0 3 0z"/>
+                        </svg>
+                    </p>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-outline-secondary"
-                                    onmouseover="BoldCardDetails('pic_add_p')" onmouseleave="BoldCardDetailsOff('pic_add_p')" disabled>Add New
+                                    onmouseover="BoldCardDetails('pic_add_p')"
+                                    onmouseleave="BoldCardDetailsOff('pic_add_p')" disabled>Add New
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
+                                    <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
+                                    <path d="M14 4.5V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2h5.5L14 4.5zm-3 0A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h-2z"/>
+                                </svg>
                             </button>
                             <button type="button" class="btn btn-sm btn-outline-secondary"
-                                    onmouseover="BoldCardDetails('pic_add_p')" onmouseleave="BoldCardDetailsOff('pic_add_p')" disabled>View Pics
+                                    onmouseover="BoldCardDetails('pic_add_p')"
+                                    onmouseleave="BoldCardDetailsOff('pic_add_p')" disabled>View Pics
+
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                     class="bi bi-view-list" viewBox="0 0 16 16">
+                                    <path d="M3 4.5h10a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v3a1 1 0 0 0 1 1h10a1 1 0 0 0 1-1v-3a1 1 0 0 0-1-1H3zM1 2a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 2zm0 12a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13A.5.5 0 0 1 1 14z"/>
+                                </svg>
                             </button>
                         </div>
                     </div>
