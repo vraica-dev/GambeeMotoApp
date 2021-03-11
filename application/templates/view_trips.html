@@ -30,7 +30,7 @@
         <p class="lead text-muted">Here you can see all of your riding trips.</p>
     </div>
 
-    <div class="row mb-2" style="height: 14px">
+    <div class="row" style="height: 14px; margin-bottom:4px;">
         <div class="col">
             <button type="button" style="border: 2px solid black;" class="btn btn-light"
                     onclick="window.location.href='{{ url_for( 'download_file', tab='trips') }}';">Download trips to CSV
@@ -40,7 +40,7 @@
 </div>
 
 
-<div class="row">
+<div class="row" style="margin-top:20px">
     {%set j = namespace(value=1)%}
     {% for trip in list_trips %}
 
