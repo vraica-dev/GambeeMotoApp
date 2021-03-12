@@ -1,6 +1,5 @@
 from flask import Flask
-from flask_login import  LoginManager
-from config import Config
+import config
 from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
@@ -8,7 +7,7 @@ db = SQLAlchemy()
 
 def init_app():
     app = Flask(__name__, instance_relative_config=False)
-    app.config.from_object(Config)
+    app.config.from_object(config.DevConfig) #dev
     db.init_app(app)
 
     with app.app_context():

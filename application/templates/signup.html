@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
+{%extends 'login_signup_base.html'%}
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-    <link rel="stylesheet" href="static/style.css">
-    <title>Login</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-</head>
+{%block signup_form%}
 
-<body class="d-flex justify-content-center text-center">
-
-<div class="card shadow-sm col-sm-3 mt-4 pt-4" style="width: 360px;">
-    <div class="card-body">
+<div class="card shadow-sm col-sm-3 mt-4 pt-4" id="login_signup_form">
+    <div class="card-body" id="login_signup_form">
         <form class="form-signin" method="post" action="{{ url_for('signup_page') }}">
 
             <img class="mb-4" src="static/imgs/logo.png" alt="" width="72"
@@ -30,27 +21,24 @@
             <label for="inputPassword" class="sr-only">Insert Again Password</label>
             <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""
                    name="new_passw_second">
-            </div>
-            <div class="checkbox mb-2">
-                <br>
-                <hr>
-            </div>
-            <button class="btn btn-lg btn-danger btn-block" type="submit">Make me a Gambeer</button>
-            <p class="mt-5 mb-3 text-muted">© VRAICA 2021 | v2.2.6</p>
-        </form>
-
-        {% with messages = get_flashed_messages() %}
-            {% if messages %}
-            <ul class=flashes>
-                {% for message in messages %}
-                <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-        {% endwith %}
+    <div class="checkbox mb-2">
+        <br>
+        <hr>
     </div>
+    <button class="btn btn-lg btn btn-outline-success btn-block" type="submit">Make me a Gambeer</button>
+    <p class="mt-5 mb-3 text-muted">© VRAICA 2021 | v2.2.6</p>
+    </form>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul class=flashes>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+</div>
 </div>
 
-
-</body>
-</html>
+{%endblock%}
