@@ -1,0 +1,104 @@
+{%extends 'trips_common.html'%}
+
+{%block pics_grid%}
+
+<div class="row py-lg-1">
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-bold text-center">Gambee Moto App</h1>
+        <p class="lead text-muted">Here you can log a new riding trip.</p>
+    </div>
+
+    <BR>
+    <HR>
+
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
+</div>
+
+
+<div class="text-center container pb-1 pt-5" style="min-width: 380px; width:30%;">
+
+    <div class="card text-center container mb-4 form_shadow">
+
+        <form action="{{ url_for('trip_pics') }}" method="POST" class="needs-validation" enctype="multipart/form-data"
+              novalidate>
+
+            <form class="form-row">
+                <div class="col-md mb-3">
+                    <label for="validationCustom01">Pic Name</label>
+                    <input type="text" class="form-control" id="validationCustom02" name="pic_name"
+                           placeholder="e.g. FirstRide" value=""
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md mb-3">
+                    <label for="validationCustom01">Location of Pic</label>
+                    <input type="text" class="form-control" id="validationCustom01" name="pic_loc"
+                           placeholder="e.g. Bucharest-Baneasa" value=""
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div>
+                <div class="col-md mb-3">
+                    <label for="validationCustom02">Select the Pic</label>
+                    <input type="file" accept=".jpg,.jpeg" class="form-control" id="validationCustom02" name="file"
+                           placeholder="select a pic" value=""
+                           required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="defaultCheck1" checked disabled>
+                        <label class="form-check-label" for="defaultCheck1">
+                            I'm aware that the pic I upload have to respect the community guidelines.
+                        </label>
+                    </div>
+                </div>
+                <div class="col-auto my-1">
+                    <button type="submit" class="btn btn-info" disabled>Upload my pic</button> <br>
+                    <small>Pic upload func<strong> temporary disabled </strong> until community guidelines are created.</small>
+                </div>
+
+            </form>
+        </form>
+    </div>
+</div>
+
+
+<script>
+// Example starter JavaScript for disabling form submissions if there are invalid fields
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+    var forms = document.getElementsByClassName('needs-validation');
+    // Loop over them and prevent submission
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+
+
+
+</script>
+
+{%endblock%}

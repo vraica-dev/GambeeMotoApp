@@ -38,3 +38,15 @@ p, h1, h3, a {
     border-radius: 18px;
 }
 
+#pic_format {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 5px;
+  width: 310px;
+  height:230px;
+}
+
+
+.card_pics {
+    border-radius: 12px;
+}

@@ -1,0 +1,86 @@
+{% extends 'base.html'%}
+
+{% block listing_trip_pics %}
+
+<nav class="navbar navbar-light bg-light">
+    <form class="form-inline">
+        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">
+            Return HOME
+        </button>
+    </form>
+
+    <p class="m-2"></p>
+    {% if crr_user == 'guest' %}
+    <button type="button" class="btn btn-danger" disabled>
+        User logged: {{ crr_user }}
+    </button>
+    {%else%}
+    <button type="button" class="btn btn-info" disabled>
+        User logged: {{ crr_user }}
+    </button>
+    {% endif %}
+
+</nav>
+
+
+<div class="row py-lg-5">
+
+    <div class="col-lg-6 col-md-8 mx-auto">
+        <h1 class="fw-bold text-center">Gambee Moto App</h1>
+        <p class="lead text-muted">Here you can see all of your pics.</p>
+    </div>
+
+    <div class="row" style="height: 14px; margin-bottom:4px;">
+        <div class="col">
+            <button type="button" style="border: 2px solid black;" class="btn btn-light"
+                    onclick="window.location.href='{{ url_for( 'download_file', tab='trips') }}';" disabled>Download
+                pics
+            </button>
+        </div>
+    </div>
+</div>
+
+<div class="row" style="margin-top:20px; margin-left:10px">
+    {%set j = namespace(value=1)%}
+    {% for pic in list_pics %}
+
+    <div class="col-sm-3">
+        <div class="card m-2 card_pics">
+            <div class="card-body">
+                <img class="card-img-top" id="pic_format" src="data:;base64,{{ imgs[pic.pic_name] }}">
+                <hr>
+                <h5 class="card-title">{{pic.pic_name}}</h5>
+                <p class="card-text">{{pic.pic_location}}</p>
+                <hr>
+                <small>Posted by {{pic.pic_owner}}</small> <br>
+                <small>Posted on {{pic.pic_posted_on}}</small>
+                <hr>
+
+                <div>
+                    <button class="btn btn-outline-danger" style="padding:2px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-trash-fill" viewBox="0 0 16 16">
+                            <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1H2.5zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5zM8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5zm3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0z"/>
+                        </svg>
+                    </button>
+
+                    <button class="btn btn-outline-danger" style="padding:2px;">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                             class="bi bi-binoculars" viewBox="0 0 16 16">
+                            <path d="M3 2.5A1.5 1.5 0 0 1 4.5 1h1A1.5 1.5 0 0 1 7 2.5V5h2V2.5A1.5 1.5 0 0 1 10.5 1h1A1.5 1.5 0 0 1 13 2.5v2.382a.5.5 0 0 0 .276.447l.895.447A1.5 1.5 0 0 1 15 7.118V14.5a1.5 1.5 0 0 1-1.5 1.5h-3A1.5 1.5 0 0 1 9 14.5v-3a.5.5 0 0 1 .146-.354l.854-.853V9.5a.5.5 0 0 0-.5-.5h-3a.5.5 0 0 0-.5.5v.793l.854.853A.5.5 0 0 1 7 11.5v3A1.5 1.5 0 0 1 5.5 16h-3A1.5 1.5 0 0 1 1 14.5V7.118a1.5 1.5 0 0 1 .83-1.342l.894-.447A.5.5 0 0 0 3 4.882V2.5zM4.5 2a.5.5 0 0 0-.5.5V3h2v-.5a.5.5 0 0 0-.5-.5h-1zM6 4H4v.882a1.5 1.5 0 0 1-.83 1.342l-.894.447A.5.5 0 0 0 2 7.118V13h4v-1.293l-.854-.853A.5.5 0 0 1 5 10.5v-1A1.5 1.5 0 0 1 6.5 8h3A1.5 1.5 0 0 1 11 9.5v1a.5.5 0 0 1-.146.354l-.854.853V13h4V7.118a.5.5 0 0 0-.276-.447l-.895-.447A1.5 1.5 0 0 1 12 4.882V4h-2v1.5a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V4zm4-1h2v-.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5V3zm4 11h-4v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14zm-8 0H2v.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 .5-.5V14z"/>
+                        </svg>
+                    </button>
+                </div>
+
+
+            </div>
+
+        </div>
+    </div>
+    {%set j.value =j.value + 1%}
+    {% endfor %}
+
+</div>
+
+
+{% endblock %}

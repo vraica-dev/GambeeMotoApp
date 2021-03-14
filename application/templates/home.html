@@ -143,7 +143,8 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-outline-secondary"
                                     onmouseover="BoldCardDetails('pic_add_p')"
-                                    onmouseleave="BoldCardDetailsOff('pic_add_p')" disabled>Add New
+                                    onmouseleave="BoldCardDetailsOff('pic_add_p')"
+                                    onclick="window.location.href='{{ url_for( 'trip_pics') }}';">Add New
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
                                     <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
@@ -152,7 +153,8 @@
                             </button>
                             <button type="button" class="btn btn-sm btn-outline-secondary"
                                     onmouseover="BoldCardDetails('pic_add_p')"
-                                    onmouseleave="BoldCardDetailsOff('pic_add_p')" disabled>View Pics
+                                    onmouseleave="BoldCardDetailsOff('pic_add_p')"
+                                    onclick="window.location.href='{{ url_for( 'view_trip_pics') }}';">View Pics
 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-view-list" viewBox="0 0 16 16">
@@ -165,4 +167,5 @@
             </div>
         </div>
     </div>
+
     {%endblock%}

@@ -2,11 +2,15 @@ from flask import render_template, redirect, request, url_for, session, flash, s
 from flask import current_app as app
 from flask_login import LoginManager, current_user, login_user, login_manager, login_required, logout_user
 from application import db
-from application.models import TripRecords, Riders, MechanicalEvent
+from application.models import TripRecords, Riders, MechanicalEvent, TripPicture
 from datetime import datetime
 from components.riderProfile import RiderProfile
 from components.exporter import DataExporter
+from components.funcs import convert_to_blob, convert_to_pic, get_display_link
+from components.picture_formatter import PicFormatter
 import config
+import base64
+from base64 import b64encode
 import os
 
 loginMan = LoginManager(app)
@@ -154,7 +158,6 @@ def log_out():
 
 @app.route('/delete/<rider_email>')
 def delete_user(rider_email):
-
     def remove_user_data():
         found_user = Riders.query.filter_by(email=rider_email).first()
         db.session.delete(found_user)
@@ -337,7 +340,6 @@ def delete_event(rider_email, event_name):
 
 @app.route('/download/<tab>', methods=['GET', 'POST'])
 def download_file(tab):
-
     if os.path.isfile(f'application/temp_files/data_{tab}.csv'):
         os.remove(f'application/temp_files/data_{tab}.csv')
 
@@ -350,6 +352,49 @@ def download_file(tab):
     else:
         return f'<p>No file processed for {tab}.</p>'
 
+
+@app.route('/trip_pics', methods=['GET', 'POST'])
+def trip_pics():
+    if request.method == 'GET':
+        return render_template('trip_pics.html', crr_user=session['logged_user'].split('@')[0])
+    elif request.method == 'POST':
+        temp_pic_name = request.form['pic_name']
+        temp_pic_loc = request.form['pic_loc']
+        temp_pic_data = request.files['file']
+        temp_pic_owner = session.get('logged_user', 'unknown')
+
+        new_pic_formatter = PicFormatter(temp_pic_data)
+        ress = new_pic_formatter.get_image_original()
+        ress.save(os.path.join('application/temp_files', temp_pic_name + '.jpg'))
+
+        retreive_pic = os.path.join('application/temp_files', temp_pic_name + '.jpg')
+        new_pic = TripPicture(pic_name=temp_pic_name, pic_location=temp_pic_loc,
+                              pic_blob=convert_to_blob(retreive_pic), pic_owner=temp_pic_owner)
+        os.remove(retreive_pic)
+        if new_pic:
+            db.session.add(new_pic)
+            db.session.commit()
+        else:
+            flash('Error when uploading data')
+            return redirect(url_for('trip_pics'))
+
+        return redirect(url_for('trip_pics'))
+
+
+@app.route('/view_trip_pics', methods=['GET'])
+@login_required
+def view_trip_pics():
+    if session['logged_user'] != app.config['ADMIN_USER']:
+        trip_pics = TripPicture.query.filter_by(pic_owner=session['logged_user']).all()
+    else:
+        trip_pics = TripPicture.query.all()
+
+    dic_obj_pics = {}
+    for pic in trip_pics:
+        dic_obj_pics[pic.pic_name] = b64encode(pic.pic_blob).decode("utf-8")
+
+    return render_template('view_trip_pics.html', list_pics=trip_pics, imgs=dic_obj_pics,
+                           crr_user=session['logged_user'].split('@')[0])
 
 @loginMan.user_loader
 def load_user(email):

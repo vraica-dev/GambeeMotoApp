@@ -22,3 +22,4 @@ class DevConfig(Config):
     DEBUG = 1
     TESTING = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI')
+

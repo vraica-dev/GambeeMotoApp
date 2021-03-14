@@ -70,3 +70,20 @@ class MechanicalEvent(db.Model):
         self.event_km = event_km
         self.event_cost = event_cost
         self.event_owner = event_owner
+
+
+class TripPicture(db.Model):
+    __tablename__ = 'Trip_Pictures'
+    id = db.Column(db.Integer, primary_key=True)
+    pic_name = db.Column(db.String(100))
+    pic_location = db.Column(db.String(100))
+    pic_blob = db.Column(db.BLOB)
+    pic_owner = db.Column(db.String(100))
+    pic_posted_on = db.Column(db.Date)
+
+    def __init__(self, pic_name, pic_location, pic_blob, pic_owner):
+        self.pic_name = pic_name
+        self.pic_location = pic_location
+        self.pic_blob = pic_blob
+        self.pic_owner = pic_owner
+        self.pic_posted_on = datetime.now().date()
