@@ -7,13 +7,27 @@
     <p>Author - {{detailed_trip.added_by}}</p>
 </div>
 
-<div class="text-center container pb-1 form_shadow" style="min-width: 380px; width:30%;">
+<div class="text-center container pb-1 form_shadow form-narrow">
 
-    <div class="card text-center container ml-2">
+    <div class="card text-center container ml-2 mb-2">
+        <div class="card-body text-start">
+            <p><strong>Trip:</strong> {{detailed_trip.trip_name}}</p>
+            <p><strong>Date:</strong> {{detailed_trip.trip_date|human_date}}</p>
+            <p><strong>Area:</strong> {{detailed_trip.area_name}}</p>
+            <p><strong>KM travelled:</strong> {{detailed_trip.km_travelled}}</p>
+            <p><strong>Hours riding:</strong> {{detailed_trip.h_travelled}}</p>
+            <p><strong>KM initial / final:</strong> {{detailed_trip.km_initial}} / {{detailed_trip.km_final}}</p>
+        </div>
+        <button class="btn btn-outline-primary mb-2" type="button"
+                onclick="var f=document.getElementById('edit_trip_form');f.style.display=(f.style.display==='none'?'block':'none');">Edit
+        </button>
+    </div>
 
-        <form action="{{url_for('update_existing_trip', rider_email=detailed_trip.added_by,
-                                    trip_name=detailed_trip.trip_name)}}" method="POST" class="needs-validation"
+    <div class="card text-center container ml-2" id="edit_trip_form" style="display:none;">
+
+        <form action="{{url_for('trips.update_existing_trip', trip_id=detailed_trip.id)}}" method="POST" class="needs-validation"
               novalidate>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
             <div class="form-row">
                 <div class="col-md mb-3">
                     <label for="validationCustom01">Trip Name</label>
@@ -72,7 +86,7 @@
                     </div>
                 </div>
                 <div class="col-md mb-3">
-                    <label for="validationCustom04">No KM - Intiial</label>
+                    <label for="validationCustom04">No KM - Initial</label>
                     <input type="number" class="form-control" id="validationCustom04" name="new_km_initial"
                            placeholder="e.g. 31200" value="{{detailed_trip.km_initial}}" required>
                     <div class="invalid-feedback">
@@ -90,8 +104,10 @@
             </div>
             <button class="btn btn-info mb-2" name="update_trip" type="submit" value="tripUpdate">UPDATE</button>
         </form>
-        <a href="{{url_for('delete_trip', rider_email = detailed_trip.added_by, trip_name=detailed_trip.trip_name)}}"
-           class="btn btn-danger m-2" style="width: 110px">DELETE</a>
+        <form action="{{url_for('trips.delete_trip', trip_id=detailed_trip.id)}}" method="POST" class="m-2">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+            <button type="submit" class="btn btn-danger" style="width: 110px" onclick="return confirm('Delete this trip? This cannot be undone.')">DELETE</button>
+        </form>
     </div>
 
 </div>

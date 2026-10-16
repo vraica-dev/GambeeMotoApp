@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-light bg-light">
     <form class="form-inline">
-        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">
+        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'main.home') }}';">
             Return HOME
         </button>
     </form>
@@ -29,11 +29,28 @@
         <p class="lead text-muted">Here you can see all of your bike mechanical events.</p>
     </div>
 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
     <div class="row mb-2" style="height: 14px">
         <div class="col">
             <button type="button" style="border: 2px solid black;" class="btn btn-light"
-                    onclick="window.location.href='{{ url_for( 'download_file', tab='events') }}';">Download events to CSV
+                    onclick="window.location.href='{{ url_for( 'main.download_file', tab='events') }}';">Download events to CSV
             </button>
+        </div>
+        <div class="col">
+            <form method="GET" action="{{ url_for('events.view_mechanical_ev') }}" class="form-inline justify-content-end">
+                <input type="search" class="form-control" name="q" placeholder="Search name or details"
+                       value="{{ q or '' }}">
+                <button type="submit" class="btn btn-outline-secondary ms-2">Search</button>
+            </form>
         </div>
     </div>
 
@@ -56,7 +73,7 @@
                 <p class="card-text"> KM when occured: {{mevent.event_km}}</p>
                 <p class="card-text"> Cost (EUR): {{mevent.event_cost}}</p>
                 <hr>
-                <a href="{{url_for('detailed_event', event_name='$' + mevent.event_name )}}" class="btn btn-primary">View
+                <a href="{{url_for('events.detailed_event', event_id=mevent.id )}}" class="btn btn-primary">View
                     Details</a>
             </div>
         </div>
@@ -67,4 +84,20 @@
     <h1>No data to display.</h1>
     {% endif %}
 </div>
+
+{% if pages > 1 %}
+<div class="d-flex justify-content-center align-items-center my-3">
+    {% if page > 1 %}
+    <button type="button" class="btn btn-outline-secondary"
+            onclick="window.location.href='{{ url_for('events.view_mechanical_ev') }}?page={{ page - 1 }}';">Previous
+    </button>
+    {% endif %}
+    <span class="mx-3">Page {{ page }} of {{ pages }}</span>
+    {% if page < pages %}
+    <button type="button" class="btn btn-outline-secondary"
+            onclick="window.location.href='{{ url_for('events.view_mechanical_ev') }}?page={{ page + 1 }}';">Next
+    </button>
+    {% endif %}
+</div>
+{% endif %}
 {% endblock %}

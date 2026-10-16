@@ -4,7 +4,8 @@
 
 <div class="card shadow-sm col-sm-3 mt-4" id="login_signup_form">
     <div class="card-body form_shadow" id="login_signup_form">
-        <form class="form-signin" method="post" action="{{ url_for('signup_page') }}">
+        <form class="form-signin" method="post" action="{{ url_for('auth.signup_page') }}">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
             <img class="mb-4" src="static/imgs/logo.png" alt="" width="72"
                  height="72">

@@ -25,11 +25,12 @@
 </div>
 
 
-<div class="text-center container pb-1" style="min-width: 380px; width:30%;">
+<div class="text-center container pb-1 form-narrow">
 
     <div class="card text-center container mb-4 form_shadow">
 
-        <form action="{{ url_for('trips') }}" method="POST" class="needs-validation" novalidate>
+        <form action="{{ url_for('trips.trips') }}" method="POST" class="needs-validation" novalidate>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
             <div class="form-row">
                 <div class="col-md mb-3">
@@ -89,7 +90,7 @@
                     </div>
                 </div>
                 <div class="col-md mb-3">
-                    <label for="validationCustom04">No KM - Intiial</label>
+                    <label for="validationCustom04">No KM - Initial</label>
                     <input type="number" class="form-control" id="validationCustom04" name="km_initial"
                            placeholder="e.g. 31200" value="" required>
                     <div class="invalid-feedback">

@@ -3,24 +3,27 @@
 {%block login_form%}
       <div class="card shadow-sm col-sm-3 mt-4"  id="login_signup_form">
          <div class="card-body form_shadow" id="login_signup_form">
-            <form class="form-signin" method="post" action="{{ url_for('login_page', next=request.endpoint) }}">
+            <form class="form-signin" method="post" action="{{ url_for('auth.login_page') }}">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
                <img class="mb-4" src="static/imgs/logo.png" alt="" width="72"
                   height="72">
                <h1 class="h3 mb-3 font-weight-normal">Gambee Moto App Login</h1>
                <label for="inputEmail" class="sr-only">Rider Email</label>
                <input type="email" id="inputEmail" class="form-control" placeholder="Email address" required=""
-                  autofocus="" name="rider_email" value="guest@guest.com">
+                  autofocus="" name="rider_email" value="">
                <label for="inputPassword" class="sr-only">Rider Password</label>
                <input type="password" id="inputPassword" class="form-control" placeholder="Password" required=""
-                  name="rider_passw" value="123">
+                  name="rider_passw" value="">
                <div class="checkbox mb-2">
                   <br>
                   <hr>
                </div>
                <button class="btn btn-lg btn btn-outline-dark btn-block" type="submit">Drop a gear!</button>
+               <button class="btn btn-lg btn btn-outline-secondary btn-block" type="button"
+                  onclick="document.getElementById('inputEmail').value='guest@guest.com';document.getElementById('inputPassword').value='123';this.form.submit();">Try the demo account</button>
                <p class="mt-5 mb-3 text-muted">© VRAICA 2021 | v2.2.8</p>
             </form>
-            <p>Don't have an account? <a href="{{url_for('signup_page')}}">Request One.</a></p>
+            <p>Don't have an account? <a href="{{url_for('auth.signup_page')}}">Request One.</a></p>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             <ul class=flashes>

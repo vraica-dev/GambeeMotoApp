@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-light bg-light">
     <form class="form-inline">
-        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">
+        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'main.home') }}';">
             Return HOME
         </button>
     </form>
@@ -30,11 +30,28 @@
         <p class="lead text-muted">Here you can see all of your riding trips.</p>
     </div>
 
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert alert-danger" role="alert">
+        {{message}}
+    </div>
+    {% endfor %}
+    {% endif %}
+    {% endwith %}
+
     <div class="row" style="height: 14px; margin-bottom:4px;">
         <div class="col">
             <button type="button" style="border: 2px solid black;" class="btn btn-light"
-                    onclick="window.location.href='{{ url_for( 'download_file', tab='trips') }}';">Download trips to CSV
+                    onclick="window.location.href='{{ url_for( 'main.download_file', tab='trips') }}';">Download trips to CSV
             </button>
+        </div>
+        <div class="col">
+            <form method="GET" action="{{ url_for('trips.view_trips') }}" class="form-inline justify-content-end">
+                <input type="search" class="form-control" name="q" placeholder="Search name or area"
+                       value="{{ q or '' }}">
+                <button type="submit" class="btn btn-outline-secondary ms-2">Search</button>
+            </form>
         </div>
     </div>
 </div>
@@ -53,10 +70,10 @@
                 <p class="card-text"> Area Name: {{trip.area_name}}</p>
                 <p class="card-text"> KM Done: {{trip.km_travelled}}</p>
                 <p class="card-text"> Hours of Riding: {{trip.h_travelled}}</p>
-                <p class="card-text"> KM Intial: {{trip.km_initial}}</p>
+                <p class="card-text"> KM Initial: {{trip.km_initial}}</p>
                 <p class="card-text"> KM Final: {{trip.km_final}}</p>
                 <hr>
-                <a href="{{url_for('detailed_trip', trip_name= trip.trip_name )}}" class="btn btn-primary">View
+                <a href="{{url_for('trips.detailed_trip', trip_id= trip.id )}}" class="btn btn-primary">View
                     Details</a>
             </div>
         </div>
@@ -65,6 +82,22 @@
     {% endfor %}
 
 </div>
+
+{% if pages > 1 %}
+<div class="d-flex justify-content-center align-items-center my-3">
+    {% if page > 1 %}
+    <button type="button" class="btn btn-outline-secondary"
+            onclick="window.location.href='{{ url_for('trips.view_trips') }}?page={{ page - 1 }}';">Previous
+    </button>
+    {% endif %}
+    <span class="mx-3">Page {{ page }} of {{ pages }}</span>
+    {% if page < pages %}
+    <button type="button" class="btn btn-outline-secondary"
+            onclick="window.location.href='{{ url_for('trips.view_trips') }}?page={{ page + 1 }}';">Next
+    </button>
+    {% endif %}
+</div>
+{% endif %}
 
 
 {% endblock %}

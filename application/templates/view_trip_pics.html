@@ -4,7 +4,7 @@
 
 <nav class="navbar navbar-light bg-light">
     <form class="form-inline">
-        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">
+        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'main.home') }}';">
             Return HOME
         </button>
     </form>
@@ -33,7 +33,7 @@
     <div class="row" style="height: 14px; margin-bottom:4px;">
         <div class="col">
             <button type="button" style="border: 2px solid black;" class="btn btn-light"
-                    onclick="window.location.href='{{ url_for( 'download_file', tab='trips') }}';" disabled>Download
+                    onclick="window.location.href='{{ url_for( 'main.download_file', tab='trips') }}';" disabled>Download
                 pics
             </button>
         </div>
@@ -47,7 +47,7 @@
     <div class="col-sm-3">
         <div class="card m-2 card_pics">
             <div class="card-body">
-                <img class="card-img-top" id="pic_format" src="data:;base64,{{ imgs[pic.pic_name] }}">
+                <img class="card-img-top" id="pic_format" loading="lazy" src="{{ url_for('pics.serve_pic', pic_id=pic.id, size='thumb') }}">
                 <hr>
                 <h5 class="card-title">{{pic.pic_name}}</h5>
                 <p class="card-text">{{pic.pic_location}}</p>
@@ -81,6 +81,22 @@
     {% endfor %}
 
 </div>
+
+{% if pages > 1 %}
+<div class="d-flex justify-content-center align-items-center my-3">
+    {% if page > 1 %}
+    <button type="button" class="btn btn-outline-secondary"
+            onclick="window.location.href='{{ url_for('pics.view_trip_pics') }}?page={{ page - 1 }}';">Previous
+    </button>
+    {% endif %}
+    <span class="mx-3">Page {{ page }} of {{ pages }}</span>
+    {% if page < pages %}
+    <button type="button" class="btn btn-outline-secondary"
+            onclick="window.location.href='{{ url_for('pics.view_trip_pics') }}?page={{ page + 1 }}';">Next
+    </button>
+    {% endif %}
+</div>
+{% endif %}
 
 
 {% endblock %}
