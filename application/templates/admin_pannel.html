@@ -4,6 +4,7 @@
 
 <h1>Riders:</h1>
 
+<div class="table-responsive">
 <table class="table">
     <thead>
     <tr>
@@ -21,15 +22,20 @@
         <td>{{rider.email}}</td>
         <td>{{rider.joined_on}}</td>
         <td>
-            <a href="{{url_for('delete_user', rider_email=rider.email)}}" class="btn btn-danger">DELETE</a>
+            <form action="{{url_for('admin.delete_user', rider_email=rider.email)}}" method="POST" style="display:inline">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this item? This cannot be undone.')">DELETE</button>
+            </form>
         </td>
     </tr>
     {%endfor%}
     </tbody>
 </table>
+</div>
 
 <h1>Posts:</h1>
 
+<div class="table-responsive">
 <table class="table">
     <thead>
     <tr>
@@ -48,18 +54,22 @@
         <td>{{trip.added_by}}</td>
         <td>{{trip.trip_date}}</td>
         <td>
-            <a href="{{url_for('detailed_trip', trip_name=trip.trip_name)}}" class="btn btn-info">VIEW POST</a>
-            <a href="{{url_for('delete_trip', rider_email = trip.added_by, trip_name=trip.trip_name)}}"
-               class="btn btn-danger">DELETE</a>
+            <a href="{{url_for('trips.detailed_trip', trip_id=trip.id)}}" class="btn btn-info">VIEW POST</a>
+            <form action="{{url_for('trips.delete_trip', trip_id=trip.id)}}" method="POST" style="display:inline">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this item? This cannot be undone.')">DELETE</button>
+            </form>
         </td>
     </tr>
     {%endfor%}
     </tbody>
 </table>
+</div>
 
 
 <h1>Mechanical Events:</h1>
 
+<div class="table-responsive">
 <table class="table">
     <thead>
     <tr>
@@ -78,13 +88,16 @@
         <td>{{ev.event_owner}}</td>
         <td>{{ev.event_date}}</td>
         <td>
-            <a href="{{url_for('detailed_event', event_name='$' + ev.event_name)}}" class="btn btn-info">VIEW EVENT</a>
-            <a href="{{url_for('delete_event', rider_email = ev.event_owner, event_name='$' + ev.event_name)}}"
-               class="btn btn-danger">DELETE</a>
+            <a href="{{url_for('events.detailed_event', event_id=ev.id)}}" class="btn btn-info">VIEW EVENT</a>
+            <form action="{{url_for('events.delete_event', event_id=ev.id)}}" method="POST" style="display:inline">
+                <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                <button type="submit" class="btn btn-danger" onclick="return confirm('Delete this item? This cannot be undone.')">DELETE</button>
+            </form>
         </td>
     </tr>
     {%endfor%}
     </tbody>
 </table>
+</div>
 
 {%endblock%}

@@ -1,0 +1,7 @@
+[tool.ruff]
+# Pinned runtime is Python 3.7 (see runtime.txt): never suggest/run
+# pyupgrade fixes that need a newer interpreter (e.g. X | Y, builtin generics).
+target-version = "py37"
+# FA100 (use `from __future__ import annotations`): deliberately off.
+# The codebase uses typing.Optional/List/Dict/Union, valid on every interpreter.
+ignore = ["FA100"]

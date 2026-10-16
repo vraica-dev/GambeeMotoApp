@@ -5,14 +5,14 @@
 <nav class="navbar navbar-light bg-black">
     <form class="form-inline">
         <button class="btn btn-outline-success" type="button"
-                onclick="window.location.href='{{ url_for( 'log_out') }}';">LOG OUT
+                onclick="window.location.href='{{ url_for( 'auth.log_out') }}';">LOG OUT
         </button>
         <button class="btn btn-outline-success" type="button"
-                onclick="window.location.href='{{ url_for( 'contact') }}';">CONTACT
+                onclick="window.location.href='{{ url_for( 'main.contact') }}';">CONTACT
         </button>
         {% if crr_user == 'admin' %}
         <button class="btn btn-outline-danger" type="button"
-                onclick="window.location.href='{{ url_for( 'admin_pannel') }}';">ADMIN PANEL
+                onclick="window.location.href='{{ url_for( 'admin.admin_pannel') }}';">ADMIN PANEL
         </button>
         {%endif%}
     </form>
@@ -20,12 +20,12 @@
     <p class="m-2"></p>
     {% if crr_user == 'guest' %}
     <button type="button" class="btn btn-danger"
-            onclick="window.location.href='{{ url_for( 'user_panel', rider_email=crr_user) }}';">
+            onclick="window.location.href='{{ url_for( 'main.user_panel', rider_email=crr_email) }}';">
         User logged: {{ crr_user }}
     </button>
     {%else%}
     <button type="button" class="btn btn-info"
-            onclick="window.location.href='{{ url_for( 'user_panel', rider_email=crr_user) }}';">
+            onclick="window.location.href='{{ url_for( 'main.user_panel', rider_email=crr_email) }}';">
         User logged: {{ crr_user }}
     </button>
     {% endif %}
@@ -37,6 +37,13 @@
         <h1 class="fw-bold text-center">Gambee Moto App</h1>
         <p class="lead text-muted">Welcome to Gambee Moto App. Here you can log your trips, mechanical operations,
             consumption and so on.</p>
+        {% if crr_user == 'guest' %}
+        <div class="alert alert-info" role="alert">
+            You are browsing the read-only demo: you can look around, but saving, editing
+            and deleting are disabled. <a href="{{ url_for('auth.signup_page') }}">Create an account</a>
+            to log your own rides.
+        </div>
+        {% endif %}
     </div>
 </div>
 
@@ -46,7 +53,7 @@
         <div class="col">
             <div class="card shadow-sm card_home">
 
-                <img src="static/imgs/motorbike-touring.jpg" class="img_home">
+                <img src="static/imgs/motorbike-touring.jpg" class="img_home" loading="lazy">
 
                 <div class="card-body">
                     <p class="card-text" id="trip_add_p">Log a motorcycle trip details.
@@ -59,7 +66,7 @@
                         <div class="btn-group">
 
                             <button type="button" class="btn btn-sm btn-outline-secondary"
-                                    onclick="window.location.href='{{ url_for( 'trips') }}';"
+                                    onclick="window.location.href='{{ url_for( 'trips.trips') }}';"
                                     onmouseover="BoldCardDetails('trip_add_p')"
                                     onmouseleave="BoldCardDetailsOff('trip_add_p')">Add New
 
@@ -72,7 +79,7 @@
 
 
                             <button type="button" class="btn btn-sm btn-outline-secondary"
-                                    onclick="window.location.href='{{ url_for( 'view_trips') }}';"
+                                    onclick="window.location.href='{{ url_for( 'trips.view_trips') }}';"
                                     onmouseover="BoldCardDetails('trip_add_p')"
                                     onmouseleave="BoldCardDetailsOff('trip_add_p')">View Trips
 
@@ -92,7 +99,7 @@
         <div class="col">
             <div class="card shadow-sm card_home">
 
-                <img src="static/imgs/mmi-motorcycle-honda-hands-on-working-in-lab.jpg" class="img_home">
+                <img src="static/imgs/mmi-motorcycle-honda-hands-on-working-in-lab.jpg" class="img_home" loading="lazy">
 
                 <div class="card-body">
                     <p class="card-text" id="mevent_add_p">Log mechanical operations.
@@ -104,7 +111,7 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
                             <button type="button" class="btn btn-sm btn-outline-secondary"
-                                    onclick="window.location.href='{{ url_for( 'mechanical_event') }}';"
+                                    onclick="window.location.href='{{ url_for( 'events.mechanical_event') }}';"
                                     onmouseover="BoldCardDetails('mevent_add_p')"
                                     onmouseleave="BoldCardDetailsOff('mevent_add_p')">Add New
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -114,7 +121,7 @@
                                 </svg>
                             </button>
                             <button type="button" class="btn btn-sm btn-outline-secondary"
-                                    onclick="window.location.href='{{ url_for( 'view_mechanical_ev') }}';"
+                                    onclick="window.location.href='{{ url_for( 'events.view_mechanical_ev') }}';"
                                     onmouseover="BoldCardDetails('mevent_add_p')"
                                     onmouseleave="BoldCardDetailsOff('mevent_add_p')"> View Events
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -130,7 +137,7 @@
         <div class="col">
             <div class="card shadow-sm card_home">
 
-                <img src="static/imgs/driver-riding-motorcycle-asphalt-road-empty-84102070.jpg" class="img_home">
+                <img src="static/imgs/driver-riding-motorcycle-asphalt-road-empty-84102070.jpg" class="img_home" loading="lazy">
 
                 <div class="card-body">
                     <p class="card-text" id="pic_add_p">Log trip pictures you took.
@@ -144,7 +151,7 @@
                             <button type="button" class="btn btn-sm btn-outline-secondary"
                                     onmouseover="BoldCardDetails('pic_add_p')"
                                     onmouseleave="BoldCardDetailsOff('pic_add_p')"
-                                    onclick="window.location.href='{{ url_for( 'trip_pics') }}';">Add New
+                                    onclick="window.location.href='{{ url_for( 'pics.trip_pics') }}';">Add New
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-file-earmark-plus" viewBox="0 0 16 16">
                                     <path d="M8 6.5a.5.5 0 0 1 .5.5v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 .5-.5z"/>
@@ -154,7 +161,7 @@
                             <button type="button" class="btn btn-sm btn-outline-secondary"
                                     onmouseover="BoldCardDetails('pic_add_p')"
                                     onmouseleave="BoldCardDetailsOff('pic_add_p')"
-                                    onclick="window.location.href='{{ url_for( 'view_trip_pics') }}';">View Pics
+                                    onclick="window.location.href='{{ url_for( 'pics.view_trip_pics') }}';">View Pics
 
                                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                                      class="bi bi-view-list" viewBox="0 0 16 16">

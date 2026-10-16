@@ -50,3 +50,32 @@ p, h1, h3, a {
 .card_pics {
     border-radius: 12px;
 }
+
+.form-narrow {
+    min-width: 380px;
+    width: 30%;
+}
+
+.detail-wide {
+    min-width: 610px;
+    width: 50%;
+}
+
+@media (max-width: 768px) {
+    .form-narrow,
+    .detail-wide {
+        min-width: 0;
+        width: 100%;
+    }
+    #login_signup_form {
+        width: 100%;
+        max-width: 360px;
+    }
+    #pic_format {
+        width: 100%;
+        height: auto;
+    }
+    .img_home {
+        height: auto;
+    }
+}

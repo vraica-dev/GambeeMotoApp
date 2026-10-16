@@ -5,7 +5,7 @@
 
 <nav class="navbar navbar-light bg-light">
     <form class="form-inline">
-        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'home') }}';">
+        <button class="btn btn-outline-success" type="button" onclick="window.location.href='{{ url_for( 'main.home') }}';">
             Return HOME
         </button>
     </form>
@@ -18,7 +18,7 @@
 <div>
 
     <div class="d-flex justify-content-center text-center" >
-        <div class="card shadow-sm col-sm-3 mt-4" style="min-width: 610px; width: 50%;">
+        <div class="card shadow-sm col-sm-3 mt-4 detail-wide">
             <h3>Activity Details</h3>
             <div class="card-header">
                 Active User - {{rider_email.email}}
@@ -35,18 +35,18 @@
                 <p class="text-sm-left">Last mechanical check - n.a.</p>
                 <hr>
                 <button class="btn btn-outline-info" type="button"
-                        onclick="window.location.href='{{ url_for( 'view_trips') }}';">VIEW USER POSTS
+                        onclick="window.location.href='{{ url_for( 'trips.view_trips') }}';">VIEW USER POSTS
                 </button>
                 <button class="btn btn-outline-info" type="button"
-                        onclick="window.location.href='{{ url_for( 'view_mechanical_ev') }}';">VIEW USER EVENTS
+                        onclick="window.location.href='{{ url_for( 'events.view_mechanical_ev') }}';">VIEW USER EVENTS
                 </button>
                 <hr>
                 <h3>Account Settings</h3>
                 <br>
-                <button class="btn btn-danger" type="button"
-                        onclick="window.location.href='{{ url_for( 'delete_user', rider_email=rider_email.email) }}';">
-                    DELETE MY ACCOUNT
-                </button>
+                <form action="{{ url_for('admin.delete_user', rider_email=rider_email.email) }}" method="POST">
+                    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
+                    <button class="btn btn-danger" type="submit" onclick="return confirm('Delete your account and all its data? This cannot be undone.')">DELETE MY ACCOUNT</button>
+                </form>
             </div>
         </div>
 

@@ -1,10 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>404 Ooops</title>
-</head>
-<body>
-    <h4> Well, this is cringe... No page found. C'mon! </h4>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block hw %}
+<div class="container mt-5">
+    <h1>404 — Not Found</h1>
+    <p class="lead text-muted">The page you're looking for doesn't exist or was removed.</p>
+    <button class="btn btn-outline-success" type="button"
+            onclick="window.location.href='{{ url_for('main.home') }}';">Return HOME
+    </button>
+</div>
+{% endblock %}

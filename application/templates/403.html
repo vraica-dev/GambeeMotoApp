@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block hw %}
+<div class="container mt-5">
+    <h1>403 — Forbidden</h1>
+    <p class="lead text-muted">You don't have access to this page or action.</p>
+    <button class="btn btn-outline-success" type="button"
+            onclick="window.location.href='{{ url_for('main.home') }}';">Return HOME
+    </button>
+</div>
+{% endblock %}

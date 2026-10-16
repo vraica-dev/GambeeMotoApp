@@ -25,11 +25,12 @@
 </div>
 
 
-<div class=" text-center container pb-1" style="min-width: 380px; width:30%;">
+<div class=" text-center container pb-1 form-narrow">
 
     <div class="card text-center container mb-4 form_shadow">
 
-        <form action="{{ url_for('mechanical_event') }}" method="POST" class="needs-validation" novalidate>
+        <form action="{{ url_for('events.mechanical_event') }}" method="POST" class="needs-validation" novalidate>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
             <div class="form-row">
                 <div class="col-md mb-3">

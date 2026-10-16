@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block hw %}
+<div class="container mt-5">
+    <h1>429 — Too Many Requests</h1>
+    <p class="lead text-muted">Too many login attempts. Please wait a few minutes and try again.</p>
+    <button class="btn btn-outline-success" type="button"
+            onclick="window.location.href='{{ url_for('auth.login_page') }}';">Back to Login
+    </button>
+</div>
+{% endblock %}

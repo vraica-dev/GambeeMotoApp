@@ -24,12 +24,13 @@
 </div>
 
 
-<div class="text-center container pb-1 pt-5" style="min-width: 380px; width:30%;">
+<div class="text-center container pb-1 pt-5 form-narrow">
 
     <div class="card text-center container mb-4 form_shadow">
 
-        <form action="{{ url_for('trip_pics') }}" method="POST" class="needs-validation" enctype="multipart/form-data"
+        <form action="{{ url_for('pics.trip_pics') }}" method="POST" class="needs-validation" enctype="multipart/form-data"
               novalidate>
+            <input type="hidden" name="csrf_token" value="{{ csrf_token() }}"/>
 
             <form class="form-row">
                 <div class="col-md mb-3">
@@ -66,8 +67,9 @@
                     </div>
                 </div>
                 <div class="col-auto my-1">
-                    <button type="submit" class="btn btn-info" disabled>Upload my pic</button> <br>
-                    <small>Pic upload func<strong> temporary disabled </strong> until community guidelines are created.</small>
+                    <button type="submit" class="btn btn-info">Upload my pic</button> <br>
+                    <small>Only .jpg/.jpeg under 5 MB. By uploading you confirm the pic is yours
+                        and respects the community guidelines (no plates of strangers, no unsafe riding shots).</small>
                 </div>
 
             </form>
